@@ -213,3 +213,23 @@ CREATE TABLE productos.producto (
     REFERENCES productos.marca(id_marca)
 );
 
+CREATE TABLE productos.producto_variante (
+    id_variante BIGSERIAL PRIMARY KEY,
+
+    producto_id BIGINT NOT NULL,
+
+    talla VARCHAR(20),
+    color VARCHAR(50),
+
+    codigo_barras VARCHAR(100),
+
+    precio_venta NUMERIC(15,2),
+
+    estado BOOLEAN DEFAULT TRUE,
+
+    CONSTRAINT fk_variante_producto
+    FOREIGN KEY (producto_id)
+    REFERENCES productos.producto(id_producto)
+);
+
+
