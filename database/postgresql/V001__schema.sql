@@ -160,5 +160,21 @@ CREATE TABLE productos.categoria (
     REFERENCES configuracion.empresa(id_empresa)
 );
 
+CREATE TABLE productos.marca (
+    id_marca BIGSERIAL PRIMARY KEY,
+    empresa_id BIGINT NOT NULL,
+
+    codigo VARCHAR(50),
+    nombre VARCHAR(150) NOT NULL,
+
+    estado BOOLEAN DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_marca_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa)
+);
+
 
 
