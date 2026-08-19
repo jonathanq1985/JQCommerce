@@ -37,3 +37,21 @@ CREATE TABLE configuracion.sucursal (
     REFERENCES configuracion.empresa(id_empresa)
 );
 
+CREATE TABLE seguridad.rol (
+    id_rol BIGSERIAL PRIMARY KEY,
+    empresa_id BIGINT NOT NULL,
+    codigo VARCHAR(50) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(300),
+    estado BOOLEAN DEFAULT TRUE,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_rol_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa)
+);
+
+
+
+
+
