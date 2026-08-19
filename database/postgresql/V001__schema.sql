@@ -22,3 +22,18 @@ CREATE TABLE configuracion.empresa (
     fecha_actualizacion TIMESTAMP
 );
 
+CREATE TABLE configuracion.sucursal (
+    id_sucursal BIGSERIAL PRIMARY KEY,
+    empresa_id BIGINT NOT NULL,
+    codigo VARCHAR(50),
+    nombre VARCHAR(150),
+    direccion VARCHAR(300),
+    telefono VARCHAR(20),
+    estado BOOLEAN DEFAULT TRUE,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_sucursal_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa)
+);
+
