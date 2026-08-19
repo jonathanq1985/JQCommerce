@@ -499,4 +499,28 @@ CREATE TABLE auditoria.historial_cambios (
     REFERENCES seguridad.usuario(id_usuario)
 );
 
+CREATE TABLE auditoria.bitacora_operaciones (
+    id_bitacora BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    usuario_id BIGINT,
+
+    proceso VARCHAR(200),
+
+    descripcion TEXT,
+
+    resultado VARCHAR(50),
+
+    fecha_operacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_bitacora_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_bitacora_usuario
+    FOREIGN KEY (usuario_id)
+    REFERENCES seguridad.usuario(id_usuario)
+);
+
 
