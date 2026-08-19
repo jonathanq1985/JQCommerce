@@ -602,5 +602,25 @@ CREATE TABLE configuracion.parametro_sistema (
     REFERENCES configuracion.empresa(id_empresa)
 );
 
+CREATE TABLE productos.proveedor (
+    id_proveedor BIGSERIAL PRIMARY KEY,
 
+    empresa_id BIGINT NOT NULL,
+
+    ruc VARCHAR(20),
+    razon_social VARCHAR(250) NOT NULL,
+
+    correo VARCHAR(150),
+    telefono VARCHAR(50),
+
+    direccion VARCHAR(300),
+
+    estado BOOLEAN DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_proveedor_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa)
+);
 
