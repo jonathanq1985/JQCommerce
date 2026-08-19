@@ -624,3 +624,26 @@ CREATE TABLE productos.proveedor (
     REFERENCES configuracion.empresa(id_empresa)
 );
 
+CREATE TABLE productos.compra (
+    id_compra BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    proveedor_id BIGINT NOT NULL,
+
+    fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    subtotal NUMERIC(15,2),
+    impuesto NUMERIC(15,2),
+    total NUMERIC(15,2),
+
+    observacion TEXT,
+
+    CONSTRAINT fk_compra_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_compra_proveedor
+    FOREIGN KEY (proveedor_id)
+    REFERENCES productos.proveedor(id_proveedor)
+);
