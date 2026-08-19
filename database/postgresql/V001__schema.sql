@@ -375,4 +375,22 @@ CREATE TABLE ventas.detalle_pedido (
 );
 
 
+CREATE TABLE ventas.metodo_pago (
+    id_metodo_pago BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    codigo VARCHAR(50),
+
+    nombre VARCHAR(100),
+
+    estado BOOLEAN DEFAULT TRUE,
+
+    CONSTRAINT fk_metodo_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa)
+);
+
+
+
 
