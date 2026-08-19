@@ -523,4 +523,31 @@ CREATE TABLE auditoria.bitacora_operaciones (
     REFERENCES seguridad.usuario(id_usuario)
 );
 
+CREATE TABLE auditoria.logs_aplicacion (
+    id_log BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT,
+
+    usuario_id BIGINT,
+
+    nivel_log VARCHAR(20),
+
+    modulo VARCHAR(100),
+
+    mensaje TEXT,
+
+    stacktrace TEXT,
+
+    fecha_log TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_logs_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_logs_usuario
+    FOREIGN KEY (usuario_id)
+    REFERENCES seguridad.usuario(id_usuario)
+);
+
+
 
