@@ -583,5 +583,24 @@ CREATE TABLE configuracion.tipo_cambio (
 );
 
 
+CREATE TABLE configuracion.parametro_sistema (
+    id_parametro BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    codigo VARCHAR(100) NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
+
+    valor TEXT,
+
+    descripcion TEXT,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_parametro_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa)
+);
+
 
 
