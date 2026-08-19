@@ -250,3 +250,36 @@ CREATE TABLE inventario.almacen (
     FOREIGN KEY (empresa_id)
     REFERENCES configuracion.empresa(id_empresa)
 );
+
+CREATE TABLE inventario.inventario (
+    id_inventario BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    almacen_id BIGINT NOT NULL,
+
+    variante_id BIGINT NOT NULL,
+
+    stock_actual NUMERIC(15,2) DEFAULT 0,
+
+    stock_minimo NUMERIC(15,2) DEFAULT 0,
+
+    stock_maximo NUMERIC(15,2),
+
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_inventario_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_inventario_almacen
+    FOREIGN KEY (almacen_id)
+    REFERENCES inventario.almacen(id_almacen),
+
+    CONSTRAINT fk_inventario_variante
+    FOREIGN KEY (variante_id)
+    REFERENCES productos.producto_variante(id_variante)
+);
+
+
+
