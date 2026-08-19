@@ -176,5 +176,40 @@ CREATE TABLE productos.marca (
     REFERENCES configuracion.empresa(id_empresa)
 );
 
+CREATE TABLE productos.producto (
+    id_producto BIGSERIAL PRIMARY KEY,
 
+    empresa_id BIGINT NOT NULL,
+
+    categoria_id BIGINT,
+    marca_id BIGINT,
+
+    codigo VARCHAR(100) NOT NULL,
+    nombre VARCHAR(200) NOT NULL,
+
+    descripcion TEXT,
+
+    precio_compra NUMERIC(15,2),
+    precio_venta NUMERIC(15,2),
+
+    unidad_medida VARCHAR(20),
+
+    stock_minimo NUMERIC(15,2) DEFAULT 0,
+
+    estado BOOLEAN DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_producto_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_producto_categoria
+    FOREIGN KEY (categoria_id)
+    REFERENCES productos.categoria(id_categoria),
+
+    CONSTRAINT fk_producto_marca
+    FOREIGN KEY (marca_id)
+    REFERENCES productos.marca(id_marca)
+);
 
