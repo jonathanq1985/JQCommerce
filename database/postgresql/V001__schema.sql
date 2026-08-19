@@ -281,5 +281,43 @@ CREATE TABLE inventario.inventario (
     REFERENCES productos.producto_variante(id_variante)
 );
 
+CREATE TABLE inventario.movimiento_inventario (
+    id_movimiento BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    almacen_id BIGINT NOT NULL,
+
+    variante_id BIGINT NOT NULL,
+
+    tipo_movimiento VARCHAR(50) NOT NULL,
+
+    cantidad NUMERIC(15,2) NOT NULL,
+
+    observacion TEXT,
+
+    usuario_id BIGINT,
+
+    fecha_movimiento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_mov_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_mov_almacen
+    FOREIGN KEY (almacen_id)
+    REFERENCES inventario.almacen(id_almacen),
+
+    CONSTRAINT fk_mov_variante
+    FOREIGN KEY (variante_id)
+    REFERENCES productos.producto_variante(id_variante),
+
+    CONSTRAINT fk_mov_usuario
+    FOREIGN KEY (usuario_id)
+    REFERENCES seguridad.usuario(id_usuario)
+);
+
+
+
 
 
