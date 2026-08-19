@@ -696,3 +696,27 @@ CREATE TABLE ventas.cotizacion (
     FOREIGN KEY (cliente_id)
     REFERENCES crm.cliente(id_cliente)
 );
+
+CREATE TABLE ventas.detalle_cotizacion (
+    id_detalle_cotizacion BIGSERIAL PRIMARY KEY,
+
+    cotizacion_id BIGINT NOT NULL,
+
+    variante_id BIGINT NOT NULL,
+
+    cantidad NUMERIC(15,2),
+
+    precio_unitario NUMERIC(15,2),
+
+    descuento NUMERIC(15,2),
+
+    subtotal NUMERIC(15,2),
+
+    CONSTRAINT fk_detalle_cotizacion
+    FOREIGN KEY (cotizacion_id)
+    REFERENCES ventas.cotizacion(id_cotizacion),
+
+    CONSTRAINT fk_detalle_cotizacion_variante
+    FOREIGN KEY (variante_id)
+    REFERENCES productos.producto_variante(id_variante)
+);
