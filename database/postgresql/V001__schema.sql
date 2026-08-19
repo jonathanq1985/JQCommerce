@@ -561,6 +561,27 @@ CREATE TABLE configuracion.moneda (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE configuracion.tipo_cambio (
+    id_tipo_cambio BIGSERIAL PRIMARY KEY,
+
+    moneda_origen_id BIGINT NOT NULL,
+    moneda_destino_id BIGINT NOT NULL,
+
+    valor NUMERIC(15,6) NOT NULL,
+
+    fecha_vigencia DATE NOT NULL,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_tc_moneda_origen
+    FOREIGN KEY (moneda_origen_id)
+    REFERENCES configuracion.moneda(id_moneda),
+
+    CONSTRAINT fk_tc_moneda_destino
+    FOREIGN KEY (moneda_destino_id)
+    REFERENCES configuracion.moneda(id_moneda)
+);
+
 
 
 
