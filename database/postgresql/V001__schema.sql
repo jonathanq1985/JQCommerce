@@ -391,6 +391,28 @@ CREATE TABLE ventas.metodo_pago (
     REFERENCES configuracion.empresa(id_empresa)
 );
 
+CREATE TABLE ventas.pago (
+    id_pago BIGSERIAL PRIMARY KEY,
+
+    pedido_id BIGINT NOT NULL,
+
+    metodo_pago_id BIGINT NOT NULL,
+
+    monto NUMERIC(15,2) NOT NULL,
+
+    fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    referencia VARCHAR(200),
+
+    CONSTRAINT fk_pago_pedido
+    FOREIGN KEY (pedido_id)
+    REFERENCES ventas.pedido(id_pedido),
+
+    CONSTRAINT fk_pago_metodo
+    FOREIGN KEY (metodo_pago_id)
+    REFERENCES ventas.metodo_pago(id_metodo_pago)
+);
+
 
 
 
