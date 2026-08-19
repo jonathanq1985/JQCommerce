@@ -143,5 +143,22 @@ CREATE TABLE crm.cliente (
     REFERENCES configuracion.empresa(id_empresa)
 );
 
+CREATE TABLE productos.categoria (
+    id_categoria BIGSERIAL PRIMARY KEY,
+    empresa_id BIGINT NOT NULL,
+
+    codigo VARCHAR(50),
+    nombre VARCHAR(150) NOT NULL,
+    descripcion VARCHAR(300),
+
+    estado BOOLEAN DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_categoria_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa)
+);
+
 
 
