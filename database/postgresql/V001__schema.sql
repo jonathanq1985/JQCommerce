@@ -413,6 +413,34 @@ CREATE TABLE ventas.pago (
     REFERENCES ventas.metodo_pago(id_metodo_pago)
 );
 
+CREATE TABLE auditoria.auditoria_sesion (
+    id_sesion BIGSERIAL PRIMARY KEY,
 
+    empresa_id BIGINT NOT NULL,
+
+    usuario_id BIGINT NOT NULL,
+
+    fecha_login TIMESTAMP NOT NULL,
+
+    fecha_logout TIMESTAMP,
+
+    direccion_ip VARCHAR(100),
+
+    navegador VARCHAR(200),
+
+    sistema_operativo VARCHAR(200),
+
+    token_jwt TEXT,
+
+    estado VARCHAR(50),
+
+    CONSTRAINT fk_auditoria_sesion_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_auditoria_sesion_usuario
+    FOREIGN KEY (usuario_id)
+    REFERENCES seguridad.usuario(id_usuario)
+);
 
 
