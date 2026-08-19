@@ -317,7 +317,38 @@ CREATE TABLE inventario.movimiento_inventario (
     REFERENCES seguridad.usuario(id_usuario)
 );
 
+CREATE TABLE ventas.pedido (
+    id_pedido BIGSERIAL PRIMARY KEY,
 
+    empresa_id BIGINT NOT NULL,
+
+    cliente_id BIGINT NOT NULL,
+
+    fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    estado VARCHAR(30) DEFAULT 'PENDIENTE',
+
+    subtotal NUMERIC(15,2) DEFAULT 0,
+    impuesto NUMERIC(15,2) DEFAULT 0,
+    descuento NUMERIC(15,2) DEFAULT 0,
+    total NUMERIC(15,2) DEFAULT 0,
+
+    observacion TEXT,
+
+    usuario_id BIGINT,
+
+    CONSTRAINT fk_pedido_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_pedido_cliente
+    FOREIGN KEY (cliente_id)
+    REFERENCES crm.cliente(id_cliente),
+
+    CONSTRAINT fk_pedido_usuario
+    FOREIGN KEY (usuario_id)
+    REFERENCES seguridad.usuario(id_usuario)
+);
 
 
 
