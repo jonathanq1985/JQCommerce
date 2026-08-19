@@ -117,3 +117,31 @@ CREATE TABLE seguridad.usuario_rol (
     REFERENCES seguridad.rol(id_rol)
 );
 
+CREATE TABLE crm.cliente (
+    id_cliente BIGSERIAL PRIMARY KEY,
+    empresa_id BIGINT NOT NULL,
+
+    tipo_documento VARCHAR(20) DEFAULT 'DNI',
+    numero_documento VARCHAR(20),
+
+    nombres VARCHAR(150) NOT NULL,
+    apellidos VARCHAR(150),
+
+    correo VARCHAR(150),
+    telefono VARCHAR(20),
+
+    direccion VARCHAR(300),
+
+    fecha_nacimiento DATE,
+
+    estado BOOLEAN DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_cliente_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa)
+);
+
+
+
