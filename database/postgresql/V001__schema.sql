@@ -60,7 +60,19 @@ CREATE TABLE seguridad.permiso (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE seguridad.rol_permiso (
+    id_rol_permiso BIGSERIAL PRIMARY KEY,
+    rol_id BIGINT NOT NULL,
+    permiso_id BIGINT NOT NULL,
 
+    CONSTRAINT fk_rol_permiso_rol
+    FOREIGN KEY (rol_id)
+    REFERENCES seguridad.rol(id_rol),
+
+    CONSTRAINT fk_rol_permiso_permiso
+    FOREIGN KEY (permiso_id)
+    REFERENCES seguridad.permiso(id_permiso)
+);
 
 
 
