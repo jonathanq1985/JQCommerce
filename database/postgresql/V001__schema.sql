@@ -647,3 +647,25 @@ CREATE TABLE productos.compra (
     FOREIGN KEY (proveedor_id)
     REFERENCES productos.proveedor(id_proveedor)
 );
+
+CREATE TABLE productos.detalle_compra (
+    id_detalle_compra BIGSERIAL PRIMARY KEY,
+
+    compra_id BIGINT NOT NULL,
+
+    variante_id BIGINT NOT NULL,
+
+    cantidad NUMERIC(15,2) NOT NULL,
+
+    precio_unitario NUMERIC(15,2) NOT NULL,
+
+    subtotal NUMERIC(15,2) NOT NULL,
+
+    CONSTRAINT fk_detalle_compra
+    FOREIGN KEY (compra_id)
+    REFERENCES productos.compra(id_compra),
+
+    CONSTRAINT fk_detalle_compra_variante
+    FOREIGN KEY (variante_id)
+    REFERENCES productos.producto_variante(id_variante)
+);
