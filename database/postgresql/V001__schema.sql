@@ -350,5 +350,29 @@ CREATE TABLE ventas.pedido (
     REFERENCES seguridad.usuario(id_usuario)
 );
 
+CREATE TABLE ventas.detalle_pedido (
+    id_detalle BIGSERIAL PRIMARY KEY,
+
+    pedido_id BIGINT NOT NULL,
+
+    variante_id BIGINT NOT NULL,
+
+    cantidad NUMERIC(15,2) NOT NULL,
+
+    precio_unitario NUMERIC(15,2) NOT NULL,
+
+    descuento NUMERIC(15,2) DEFAULT 0,
+
+    subtotal NUMERIC(15,2) NOT NULL,
+
+    CONSTRAINT fk_detalle_pedido
+    FOREIGN KEY (pedido_id)
+    REFERENCES ventas.pedido(id_pedido),
+
+    CONSTRAINT fk_detalle_variante
+    FOREIGN KEY (variante_id)
+    REFERENCES productos.producto_variante(id_variante)
+);
+
 
 
