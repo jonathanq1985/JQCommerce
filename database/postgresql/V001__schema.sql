@@ -549,5 +549,18 @@ CREATE TABLE auditoria.logs_aplicacion (
     REFERENCES seguridad.usuario(id_usuario)
 );
 
+CREATE TABLE configuracion.moneda (
+    id_moneda BIGSERIAL PRIMARY KEY,
+
+    codigo VARCHAR(10) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    simbolo VARCHAR(10),
+
+    estado BOOLEAN DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 
 
