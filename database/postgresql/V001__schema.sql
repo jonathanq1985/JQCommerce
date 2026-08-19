@@ -74,5 +74,34 @@ CREATE TABLE seguridad.rol_permiso (
     REFERENCES seguridad.permiso(id_permiso)
 );
 
+CREATE TABLE seguridad.usuario (
+    id_usuario BIGSERIAL PRIMARY KEY,
+    empresa_id BIGINT NOT NULL,
+    sucursal_id BIGINT,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(500) NOT NULL,
+
+    nombres VARCHAR(150) NOT NULL,
+    apellidos VARCHAR(150) NOT NULL,
+
+    correo VARCHAR(150),
+    telefono VARCHAR(20),
+
+    estado BOOLEAN DEFAULT TRUE,
+    bloqueado BOOLEAN DEFAULT FALSE,
+
+    ultimo_login TIMESTAMP,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_usuario_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_usuario_sucursal
+    FOREIGN KEY (sucursal_id)
+    REFERENCES configuracion.sucursal(id_sucursal)
+);
+
 
 
