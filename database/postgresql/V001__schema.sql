@@ -471,4 +471,32 @@ CREATE TABLE auditoria.auditoria_evento (
     REFERENCES seguridad.usuario(id_usuario)
 );
 
+CREATE TABLE auditoria.historial_cambios (
+    id_historial BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    usuario_id BIGINT NOT NULL,
+
+    modulo VARCHAR(100),
+
+    tabla_afectada VARCHAR(100),
+
+    campo VARCHAR(100),
+
+    valor_anterior TEXT,
+
+    valor_nuevo TEXT,
+
+    fecha_cambio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_historial_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_historial_usuario
+    FOREIGN KEY (usuario_id)
+    REFERENCES seguridad.usuario(id_usuario)
+);
+
 
