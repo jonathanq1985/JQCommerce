@@ -443,4 +443,32 @@ CREATE TABLE auditoria.auditoria_sesion (
     REFERENCES seguridad.usuario(id_usuario)
 );
 
+CREATE TABLE auditoria.auditoria_evento (
+    id_evento BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    usuario_id BIGINT NOT NULL,
+
+    modulo VARCHAR(100),
+
+    accion VARCHAR(100),
+
+    entidad VARCHAR(100),
+
+    registro_id BIGINT,
+
+    descripcion TEXT,
+
+    fecha_evento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_auditoria_evento_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_auditoria_evento_usuario
+    FOREIGN KEY (usuario_id)
+    REFERENCES seguridad.usuario(id_usuario)
+);
+
 
