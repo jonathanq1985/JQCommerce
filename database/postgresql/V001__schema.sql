@@ -103,5 +103,17 @@ CREATE TABLE seguridad.usuario (
     REFERENCES configuracion.sucursal(id_sucursal)
 );
 
+CREATE TABLE seguridad.usuario_rol (
+    id_usuario_rol BIGSERIAL PRIMARY KEY,
+    usuario_id BIGINT NOT NULL,
+    rol_id BIGINT NOT NULL,
 
+    CONSTRAINT fk_usuario_rol_usuario
+    FOREIGN KEY (usuario_id)
+    REFERENCES seguridad.usuario(id_usuario),
+
+    CONSTRAINT fk_usuario_rol_rol
+    FOREIGN KEY (rol_id)
+    REFERENCES seguridad.rol(id_rol)
+);
 
