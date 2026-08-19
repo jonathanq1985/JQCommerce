@@ -669,3 +669,30 @@ CREATE TABLE productos.detalle_compra (
     FOREIGN KEY (variante_id)
     REFERENCES productos.producto_variante(id_variante)
 );
+
+CREATE TABLE ventas.cotizacion (
+    id_cotizacion BIGSERIAL PRIMARY KEY,
+
+    empresa_id BIGINT NOT NULL,
+
+    cliente_id BIGINT NOT NULL,
+
+    fecha_cotizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    subtotal NUMERIC(15,2),
+    impuesto NUMERIC(15,2),
+    descuento NUMERIC(15,2),
+    total NUMERIC(15,2),
+
+    estado VARCHAR(50) DEFAULT 'PENDIENTE',
+
+    observacion TEXT,
+
+    CONSTRAINT fk_cotizacion_empresa
+    FOREIGN KEY (empresa_id)
+    REFERENCES configuracion.empresa(id_empresa),
+
+    CONSTRAINT fk_cotizacion_cliente
+    FOREIGN KEY (cliente_id)
+    REFERENCES crm.cliente(id_cliente)
+);
