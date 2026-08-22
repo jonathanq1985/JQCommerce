@@ -1,14 +1,20 @@
 package com.jqdigitalsolutions.jqcommerce.auth.controller;
 
+import com.jqdigitalsolutions.jqcommerce.auth.dto.LoginRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.LoginResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    @PostMapping("/lo*in")
-    public String login() {
+    @PostMapping("/login")
+    public LoginResponse login(
+            @RequestBody LoginRequest request) {
 
-       return "Login OK";
+        return new LoginResponse(
+                "TOKEN_PRUEBA",
+                "Bearer"
+        );
     }
 }
