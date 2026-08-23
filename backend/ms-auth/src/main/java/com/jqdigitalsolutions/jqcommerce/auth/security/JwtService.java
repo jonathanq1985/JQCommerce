@@ -3,8 +3,11 @@ package com.jqdigitalsolutions.jqcommerce.auth.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
+import io.jsonwebtoken.security.Keys;
+import javax.crypto.SecretKey;
+import io.jsonwebtoken.security.Keys;
+import javax.crypto.SecretKey;
 
 @Service
 public class JwtService {
@@ -30,4 +33,25 @@ public class JwtService {
                 .compact();
 
     }
+    public String extractUsername(String token) {
+
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
+
+    public boolean isTokenValid(String token,
+                                String username) {
+
+        String tokenUsername = extractUsername(token);
+        return tokenUsername.equals(username);
+    }
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+
+    }
+
 }
