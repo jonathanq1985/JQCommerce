@@ -1,5 +1,6 @@
 package com.jqdigitalsolutions.jqcommerce.auth.controller;
 
+import com.jqdigitalsolutions.jqcommerce.auth.dto.UsuarioResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.entity.Usuario;
 import com.jqdigitalsolutions.jqcommerce.auth.service.UsuarioService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> listarUsuarios() {
+    public List<UsuarioResponse> listarUsuarios() {
         return usuarioService.listarUsuarios();
     }
 }
