@@ -12,9 +12,7 @@ import javax.crypto.SecretKey;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY =
-            "jqcommerce-jwt-secret-key-2026-jq-digital-solutions";
-
+    private static final String SECRET_KEY ="jqcommerce-jwt-secret-key-2026-jq-digital-solutions";
     public String generateToken(String username) {
 
         return Jwts.builder()
