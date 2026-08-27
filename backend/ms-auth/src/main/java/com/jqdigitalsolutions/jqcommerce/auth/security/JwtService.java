@@ -49,7 +49,20 @@ public class JwtService {
     }
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
-
+    }
+    // Ing_JQC: Genera refresh token
+    public String generateRefreshToken(String username) {
+        return Jwts.builder()
+                .subject(username)
+                .issuedAt( new Date())
+                .expiration(
+                        new Date(
+                                System.currentTimeMillis()
+                                        + 604800000
+                        )
+                )
+                .signWith(getSigningKey())
+                .compact();
     }
 
 }

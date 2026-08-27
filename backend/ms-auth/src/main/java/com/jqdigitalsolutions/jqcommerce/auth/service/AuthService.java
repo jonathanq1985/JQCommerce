@@ -42,13 +42,13 @@ public class AuthService {
             );
         }
 
-        String token =
-                jwtService.generateToken(
-                        usuario.getUsername()
-                );
+        String accessToken =   jwtService.generateToken(usuario.getUsername());
+        String refreshToken = jwtService.generateRefreshToken(usuario.getUsername());
 
+        // Ing_JQC: Retorna access token y refresh token
         return new LoginResponse(
-                token,
+                accessToken,
+                refreshToken,
                 "Bearer"
         );
     }
