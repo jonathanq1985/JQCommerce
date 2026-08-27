@@ -19,6 +19,7 @@ public class AuthController {
     private final AuthService authService;
     private final JwtService jwtService;
 
+    // Ing_JQC: Endpoint para obtener el usuario autenticado desde el JWT
     @GetMapping("/me")
     public UsuarioActualResponse me(Authentication authentication) {
 

@@ -21,25 +21,8 @@ public class JwtAuthenticationFilter   extends OncePerRequestFilter {
 
         this.jwtService = jwtService;
     }
-/*
-    @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain)
-            throws ServletException, IOException {
 
-        String authHeader =             request.getHeader("Authorization");
-        System.out.println( "TOKEN RECIBIDO: " + authHeader);
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(
-                    request,
-                    response
-            );
-
-        }
-    }*/
+// Ing_JQC: Valida y registra autenticación basada en JWT
 @Override
 protected void doFilterInternal(
         HttpServletRequest request,
@@ -49,26 +32,16 @@ protected void doFilterInternal(
 
     try {
 
-        String authHeader =
-                request.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
 
-        System.out.println(
-                "TOKEN RECIBIDO: " + authHeader
-        );
+        System.out.println("TOKEN RECIBIDO: " + authHeader);
 
-        if (authHeader == null ||
-                !authHeader.startsWith("Bearer ")) {
-
-            filterChain.doFilter(
-                    request,
-                    response
-            );
-
+        if (authHeader == null ||  !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
             return;
         }
 
         String token =  authHeader.substring(7);
-
         String username =    jwtService.extractUsername(token);
         System.out.println("USUARIO TOKEN: " + username);
 
@@ -79,16 +52,11 @@ protected void doFilterInternal(
                         Collections.emptyList()
                 );
 
-        SecurityContextHolder
-                .getContext()
-                .setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
     } catch (Exception e) {
         System.out.println("ERROR JWT: " + e.getMessage());
     }
-    filterChain.doFilter(
-            request,
-            response
-    );
+    filterChain.doFilter(request, response);
 }
 }

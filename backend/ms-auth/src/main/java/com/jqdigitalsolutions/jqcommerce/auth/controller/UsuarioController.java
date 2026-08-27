@@ -19,6 +19,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+    // Ing_JQC: Obtiene todos los usuarios activos del sistema
     @GetMapping
     public List<UsuarioResponse> listarUsuarios() {
         return usuarioService.listarUsuarios();
