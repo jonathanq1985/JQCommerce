@@ -1,8 +1,7 @@
 package com.jqdigitalsolutions.jqcommerce.auth.security;
 
-import com.jqdigitalsolutions.jqcommerce.auth.repository.RolRepository;
-import com.jqdigitalsolutions.jqcommerce.auth.repository.UsuarioRepository;
-import com.jqdigitalsolutions.jqcommerce.auth.repository.UsuarioRolRepository;
+import com.jqdigitalsolutions.jqcommerce.auth.entity.*;
+import com.jqdigitalsolutions.jqcommerce.auth.repository.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,17 +13,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Collections;
 
-import com.jqdigitalsolutions.jqcommerce.auth.entity.Rol;
-import com.jqdigitalsolutions.jqcommerce.auth.entity.Usuario;
-import com.jqdigitalsolutions.jqcommerce.auth.entity.UsuarioRol;
-
-import com.jqdigitalsolutions.jqcommerce.auth.repository.RolRepository;
-import com.jqdigitalsolutions.jqcommerce.auth.repository.UsuarioRepository;
-import com.jqdigitalsolutions.jqcommerce.auth.repository.UsuarioRolRepository;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @Component
 public class JwtAuthenticationFilter   extends OncePerRequestFilter {
@@ -33,16 +25,23 @@ public class JwtAuthenticationFilter   extends OncePerRequestFilter {
     private final UsuarioRepository usuarioRepository;
     private final UsuarioRolRepository usuarioRolRepository;
     private final RolRepository rolRepository;
+
+    private final RolPermisoRepository rolPermisoRepository;
+    private final PermisoRepository permisoRepository;
     public JwtAuthenticationFilter(
             JwtService jwtService,
             UsuarioRepository usuarioRepository,
             UsuarioRolRepository usuarioRolRepository,
-            RolRepository rolRepository) {
+            RolRepository rolRepository,
+            RolPermisoRepository rolPermisoRepository,
+            PermisoRepository permisoRepository) {
 
         this.jwtService = jwtService;
         this.usuarioRepository = usuarioRepository;
         this.usuarioRolRepository = usuarioRolRepository;
         this.rolRepository = rolRepository;
+        this.rolPermisoRepository = rolPermisoRepository;
+        this.permisoRepository = permisoRepository;
     }
 
 // Ing_JQC: Valida y registra autenticación basada en JWT
@@ -83,20 +82,48 @@ protected void doFilterInternal(
                         .findFirst()
                         .orElseThrow();
 
-        // Ing_JQC: Obtiene información del rol
-        Rol rol = rolRepository
-                .findById(
-                        usuarioRol.getRolId()
-                )
-                .orElseThrow();
+                    // Ing_JQC: Obtiene información del rol
+                    Rol rol = rolRepository
+                            .findById(
+                                    usuarioRol.getRolId()
+                            )
+                            .orElseThrow();
 
-        // Ing_JQC: Construye autoridad Spring Security
-        List<SimpleGrantedAuthority> authorities =
-                List.of(
-                        new SimpleGrantedAuthority(
-                                "ROLE_" + rol.getCodigo()
-                        )
-                );
+
+                    // Ing_JQC: Lista de authorities a registrar en Spring Security
+                    List<SimpleGrantedAuthority> authorities =
+                            new ArrayList<>();
+
+            // Ing_JQC: Agrega el rol del usuario
+                    authorities.add(
+                            new SimpleGrantedAuthority(
+                                    "ROLE_" + rol.getCodigo()
+                            )
+                    );
+
+            // Ing_JQC: Obtiene permisos asociados al rol
+                    List<RolPermiso> rolPermisos =
+                            rolPermisoRepository.findByRolId(
+                                    rol.getIdRol()
+                            );
+
+            // Ing_JQC: Agrega permisos como authorities
+                    for (RolPermiso rolPermiso : rolPermisos) {
+                        Permiso permiso =
+                                permisoRepository
+                                        .findById(
+                                                rolPermiso.getPermisoId()
+                                        )
+                                        .orElseThrow();
+
+                        authorities.add(
+                                new SimpleGrantedAuthority(
+                                        permiso.getCodigo()
+                                )
+                        );
+                    }
+
+
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(

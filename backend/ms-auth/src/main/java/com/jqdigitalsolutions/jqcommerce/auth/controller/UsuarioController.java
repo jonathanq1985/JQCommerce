@@ -19,10 +19,22 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+        // Ing_JQC: Consulta usuarios con permiso de visualizar ventas
+        @PreAuthorize("hasAuthority('VENTA_VER')")
+        @GetMapping
+        public List<UsuarioResponse> listarUsuarios() {
+
+            return usuarioService.listarUsuarios();
+
+        }
+
+/*
     // Ing_JQC: Obtiene todos los usuarios activos del sistema
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<UsuarioResponse> listarUsuarios() {
         return usuarioService.listarUsuarios();
     }
+*/
+
 }
