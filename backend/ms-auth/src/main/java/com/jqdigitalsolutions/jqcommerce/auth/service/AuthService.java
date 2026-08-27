@@ -2,6 +2,8 @@ package com.jqdigitalsolutions.jqcommerce.auth.service;
 
 import com.jqdigitalsolutions.jqcommerce.auth.dto.LoginRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.LoginResponse;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.RefreshTokenRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.RefreshTokenResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.entity.Usuario;
 import com.jqdigitalsolutions.jqcommerce.auth.repository.UsuarioRepository;
 import com.jqdigitalsolutions.jqcommerce.auth.security.JwtService;
@@ -52,4 +54,23 @@ public class AuthService {
                 "Bearer"
         );
     }
+    // Ing_JQC: Genera un nuevo access token usando refresh token
+    public RefreshTokenResponse refreshToken(
+            RefreshTokenRequest request) {
+
+        String username =
+                jwtService.extractUsername(
+                        request.refreshToken()
+                );
+
+        String newAccessToken =
+                jwtService.generateToken(
+                        username
+                );
+
+        return new RefreshTokenResponse(
+                newAccessToken
+        );
+    }
+
 }
