@@ -16,6 +16,8 @@ import org.springframework.security.core.Authentication;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.RefreshTokenRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.RefreshTokenResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.LogoutRequest;
+import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -60,5 +62,11 @@ public class AuthController {
         return authService.refreshToken(
                 request
         );
+    }
+    // Ing_JQC: Cierre de sesión
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout( @RequestBody LogoutRequest request) {
+        authService.logout(request);
+        return ResponseEntity.ok().build();
     }
 }

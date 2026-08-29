@@ -5,7 +5,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.repository.AuditoriaSesionReposito
 import org.springframework.stereotype.Service;
 import com.jqdigitalsolutions.jqcommerce.auth.entity.AuditoriaSesion;
 import java.time.LocalDateTime;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 // Ing_JQC: Servicio de auditoría de sesiones
@@ -57,5 +57,16 @@ public class AuditoriaSesionService {
         auditoriaSesionRepository.save(
                 auditoria
         );
+    }
+    // Ing_JQC: Cierra la sesión activa del usuario
+    public void cerrarSesion(Long usuarioId) {
+
+        AuditoriaSesion auditoria =auditoriaSesionRepository
+                        .findFirstByUsuarioIdAndEstadoOrderByIdAuditoriaDesc(
+                                usuarioId,"ACTIVA").orElseThrow();
+
+        auditoria.setFechaLogout(LocalDateTime.now());
+        auditoria.setEstado("CERRADA");
+        auditoriaSesionRepository.save(auditoria);
     }
 }

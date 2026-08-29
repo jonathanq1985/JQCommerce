@@ -9,6 +9,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.repository.UsuarioRepository;
 import com.jqdigitalsolutions.jqcommerce.auth.security.JwtService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.LogoutRequest;
 @Service
 public class AuthService {
 
@@ -80,6 +81,17 @@ public class AuthService {
         return new RefreshTokenResponse(
                 newAccessToken
         );
+    }
+    // Ing_JQC: Cierra la sesión del usuario
+    public void logout(
+            LogoutRequest request) {
+
+        Usuario usuario =usuarioRepository
+                        .findByUsername(
+                        request.username()
+                        ).orElseThrow();
+
+        auditoriaSesionService.cerrarSesion( usuario.getIdUsuario());
     }
 
 }
