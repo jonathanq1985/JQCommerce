@@ -10,6 +10,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.security.JwtService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.LogoutRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.ChangePasswordRequest;
 @Service
 public class AuthService {
 
@@ -93,5 +94,31 @@ public class AuthService {
 
         auditoriaSesionService.cerrarSesion( usuario.getIdUsuario());
     }
+    // Ing_JQC: Cambia la contraseña del usuario
+    public void changePassword(ChangePasswordRequest request) {
 
+        Usuario usuario =
+                usuarioRepository
+                        .findByUsername(
+                                request.username()
+                        )
+                        .orElseThrow();
+
+        boolean passwordValido =
+                passwordEncoder.matches(
+                        request.currentPassword(),
+                        usuario.getPasswordHash()
+                );
+
+        if (!passwordValido) {
+            throw new RuntimeException("Contraseña actual incorrecta");
+        }
+
+        usuario.setPasswordHash(
+                passwordEncoder.encode(
+                        request.newPassword()
+                ));
+
+        usuarioRepository.save(usuario);
+    }
 }
