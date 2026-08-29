@@ -15,17 +15,24 @@ public class AuthService {
     private final UsuarioRepository usuarioRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final AuditoriaSesionService auditoriaSesionService;
     public AuthService(
             UsuarioRepository usuarioRepository,
+            PasswordEncoder passwordEncoder,
             JwtService jwtService,
-            PasswordEncoder passwordEncoder) {
+            AuditoriaSesionService auditoriaSesionService) {
 
         this.usuarioRepository = usuarioRepository;
-        this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.auditoriaSesionService = auditoriaSesionService;
     }
 
-    public LoginResponse login(LoginRequest request) {
+    // Ing_JQC: Autentica usuario y registra auditoría
+    public LoginResponse login(
+            LoginRequest request,
+            String direccionIp,
+            String userAgent) {
 
         Usuario usuario = usuarioRepository
                 .findByUsername(request.username())
@@ -47,6 +54,8 @@ public class AuthService {
         String accessToken =   jwtService.generateToken(usuario.getUsername());
         String refreshToken = jwtService.generateRefreshToken(usuario.getUsername());
 
+        // Ing_JQC: Registrar auditoría de login
+        auditoriaSesionService.guardarAuditoriaLogin(usuario.getIdUsuario(), direccionIp,userAgent);
         // Ing_JQC: Retorna access token y refresh token
         return new LoginResponse(
                 accessToken,

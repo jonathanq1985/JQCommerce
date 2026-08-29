@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 
 import com.jqdigitalsolutions.jqcommerce.auth.dto.RefreshTokenRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.RefreshTokenResponse;
+import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -35,9 +36,14 @@ public class AuthController {
         this.jwtService = jwtService;
     }
 
+    // Ing_JQC: Inicio de sesión y generación de JWT
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request) {
-        return authService.login(request);
+    public LoginResponse login(@RequestBody LoginRequest request, HttpServletRequest httpRequest) {
+        return authService.login(
+                request,
+                httpRequest.getRemoteAddr(),
+                httpRequest.getHeader("User-Agent")
+        );
     }
 
     @GetMapping("/token-info")

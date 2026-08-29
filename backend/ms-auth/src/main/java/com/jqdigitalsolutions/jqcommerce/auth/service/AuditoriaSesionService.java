@@ -3,6 +3,8 @@ package com.jqdigitalsolutions.jqcommerce.auth.service;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.AuditoriaSesionResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.repository.AuditoriaSesionRepository;
 import org.springframework.stereotype.Service;
+import com.jqdigitalsolutions.jqcommerce.auth.entity.AuditoriaSesion;
+import java.time.LocalDateTime;
 
 import java.util.List;
 
@@ -36,5 +38,24 @@ public class AuditoriaSesionService {
 
                 )
                 .toList();
+    }
+    // Ing_JQC: Registra auditoría de inicio de sesión
+    public void guardarAuditoriaLogin(
+            Long usuarioId,
+            String direccionIp,
+            String userAgent) {
+
+        AuditoriaSesion auditoria =
+                AuditoriaSesion.builder()
+                        .usuarioId(usuarioId)
+                        .fechaLogin(LocalDateTime.now())
+                        .direccionIp(direccionIp)
+                        .userAgent(userAgent)
+                        .estado("ACTIVA")
+                        .build();
+
+        auditoriaSesionRepository.save(
+                auditoria
+        );
     }
 }

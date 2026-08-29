@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/auditorias")
 public class AuditoriaSesionController {
-    
+
     private final AuditoriaSesionService auditoriaSesionService;
 
     public AuditoriaSesionController(AuditoriaSesionService auditoriaSesionService) {
