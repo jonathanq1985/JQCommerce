@@ -13,6 +13,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.dto.LogoutRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ChangePasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordResponse;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.ResetPasswordRequest;
 @Service
 public class AuthService {
 
@@ -141,5 +142,22 @@ public class AuthService {
                         );
 
         return new ForgotPasswordResponse(resetToken);
+    }
+    // Ing_JQC: Restablece contraseña mediante token
+    public void resetPassword(ResetPasswordRequest request) {
+
+        String username =
+                jwtService.extractUsername(request.resetToken());
+
+        Usuario usuario =
+                usuarioRepository.findByUsername(username)
+                        .orElseThrow();
+
+        usuario.setPasswordHash(
+                passwordEncoder.encode(request.newPassword())
+        );
+
+        usuarioRepository.save(usuario);
+
     }
 }

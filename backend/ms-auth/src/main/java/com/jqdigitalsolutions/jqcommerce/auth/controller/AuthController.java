@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ChangePasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordResponse;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.ResetPasswordRequest;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -59,12 +60,8 @@ public class AuthController {
 
     // Ing_JQC: Renueva access token usando refresh token
     @PostMapping("/refresh-token")
-    public RefreshTokenResponse refreshToken(
-            @RequestBody RefreshTokenRequest request) {
-
-        return authService.refreshToken(
-                request
-        );
+    public RefreshTokenResponse refreshToken(@RequestBody RefreshTokenRequest request) {
+        return authService.refreshToken(request);
     }
     // Ing_JQC: Cierre de sesión
     @PostMapping("/logout")
@@ -84,5 +81,12 @@ public class AuthController {
 
         return authService.forgotPassword(request);
     }
+    // Ing_JQC: Restablece contraseña usando token de recuperación
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordRequest request) {
 
+        authService.resetPassword(request);
+        return ResponseEntity.ok().build();
+
+    }
 }
