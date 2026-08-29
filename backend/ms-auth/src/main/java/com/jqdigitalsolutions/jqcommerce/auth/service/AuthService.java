@@ -14,6 +14,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.dto.ChangePasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ResetPasswordRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.UnlockUserRequest;
 @Service
 public class AuthService {
 
@@ -162,6 +163,19 @@ public class AuthService {
                 passwordEncoder.encode(request.newPassword())
         );
 
+        usuarioRepository.save(usuario);
+
+    }
+    // Ing_JQC: Desbloquea un usuario bloqueado
+    public void unlockUser(UnlockUserRequest request) {
+
+        Usuario usuario =
+                usuarioRepository.findByUsername(request.username())
+                        .orElseThrow(() ->
+                                new RuntimeException("Usuario no encontrado"));
+
+        usuario.setIntentosFallidos(0);
+        usuario.setBloqueado(false);
         usuarioRepository.save(usuario);
 
     }

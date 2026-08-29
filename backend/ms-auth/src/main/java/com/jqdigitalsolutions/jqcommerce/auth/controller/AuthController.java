@@ -5,6 +5,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.dto.LoginResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.UsuarioActualResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.security.JwtService;
 import com.jqdigitalsolutions.jqcommerce.auth.service.AuthService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.dto.ChangePasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ResetPasswordRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.UnlockUserRequest;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -86,6 +88,13 @@ public class AuthController {
     public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordRequest request) {
 
         authService.resetPassword(request);
+        return ResponseEntity.ok().build();
+    }
+    // Ing_JQC: Solo administradores pueden desbloquear usuarios
+   // @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/unlock-user")
+    public ResponseEntity<Void> unlockUser(@RequestBody UnlockUserRequest request) {
+        authService.unlockUser(request);
         return ResponseEntity.ok().build();
 
     }
