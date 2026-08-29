@@ -64,5 +64,15 @@ public class JwtService {
                 .signWith(getSigningKey())
                 .compact();
     }
+    // Ing_JQC: Genera token para recuperación de contraseña
+    public String generatePasswordResetToken( String username) {
+        return Jwts.builder()
+                .subject(username)
+                .issuedAt(new Date())
+                .expiration(
+                        new Date(System.currentTimeMillis()+ 900000)
+                ).signWith(getSigningKey()
+                ).compact();
+    }
 
 }

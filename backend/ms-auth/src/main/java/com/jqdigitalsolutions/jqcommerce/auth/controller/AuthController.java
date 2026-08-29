@@ -19,6 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.LogoutRequest;
 import org.springframework.http.ResponseEntity;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ChangePasswordRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordResponse;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -72,9 +74,15 @@ public class AuthController {
     }
     // Ing_JQC: Cambio de contraseña del usuario
     @PostMapping("/change-password")
-    public ResponseEntity<Void> changePassword(
-            @RequestBody ChangePasswordRequest request) {
+    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest request) {
         authService.changePassword(request);
         return ResponseEntity.ok().build();
     }
+    // Ing_JQC: Genera token para recuperación de contraseña
+    @PostMapping("/forgot-password")
+    public ForgotPasswordResponse forgotPassword(@RequestBody ForgotPasswordRequest request) {
+
+        return authService.forgotPassword(request);
+    }
+
 }

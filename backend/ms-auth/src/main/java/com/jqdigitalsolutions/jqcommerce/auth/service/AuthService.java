@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.LogoutRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ChangePasswordRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordResponse;
 @Service
 public class AuthService {
 
@@ -120,5 +122,24 @@ public class AuthService {
                 ));
 
         usuarioRepository.save(usuario);
+    }
+    // Ing_JQC: Genera token de recuperación de contraseña
+    public ForgotPasswordResponse forgotPassword(
+            ForgotPasswordRequest request) {
+
+        Usuario usuario =
+                usuarioRepository
+                        .findByUsername(
+                                request.username()
+                        )
+                        .orElseThrow();
+
+        String resetToken =
+                jwtService
+                        .generatePasswordResetToken(
+                                usuario.getUsername()
+                        );
+
+        return new ForgotPasswordResponse(resetToken);
     }
 }
