@@ -286,3 +286,39 @@ SELECT *
 FROM seguridad.rol_permiso;
 
 ---------------SCRITP PARA PROBAR LAS TABLAS --------------
+CREATE TABLE seguridad.auditoria_sesion
+(
+    id_auditoria BIGSERIAL PRIMARY KEY,
+
+    usuario_id BIGINT NOT NULL,
+
+    fecha_login TIMESTAMP NOT NULL,
+
+    fecha_logout TIMESTAMP,
+
+    direccion_ip VARCHAR(100),
+
+    user_agent VARCHAR(500),
+
+    estado VARCHAR(20)
+);
+
+-- Ing_JQC: Registrar auditoría inicial para pruebas
+INSERT INTO seguridad.auditoria_sesion
+(
+    usuario_id,
+    fecha_login,
+    fecha_logout,
+    direccion_ip,
+    user_agent,
+    estado
+)
+VALUES
+(
+    1,
+    NOW(),
+    NULL,
+    '127.0.0.1',
+    'Postman',
+    'ACTIVA'
+);
