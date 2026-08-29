@@ -34,11 +34,7 @@ public class AuthService {
     }
 
     // Ing_JQC: Autentica usuario y registra auditoría
-    public LoginResponse login(
-            LoginRequest request,
-            String direccionIp,
-            String userAgent) {
-
+    public LoginResponse login( LoginRequest request, String direccionIp, String userAgent) {
         Usuario usuario = usuarioRepository
                 .findByUsername(request.username())
                 .orElseThrow(() ->
@@ -47,14 +43,23 @@ public class AuthService {
                         )
                 );
 
-        if (!passwordEncoder.matches(
-                request.password(),
-                usuario.getPasswordHash())) {
-
-            throw new RuntimeException(
-                    "Contraseña incorrecta"
-            );
+        // Ing_JQC: Valida si el usuario está bloqueado
+        if(Boolean.TRUE.equals(usuario.getBloqueado())) {
+             throw new RuntimeException("Usuario bloqueado");
         }
+        if(!passwordEncoder.matches(request.password(), usuario.getPasswordHash())) {
+            usuario.setIntentosFallidos(usuario.getIntentosFallidos() + 1);
+            if(usuario.getIntentosFallidos() >= 3) {
+                usuario.setBloqueado(true);
+            }
+            usuarioRepository.save(usuario);
+            throw new RuntimeException("Credenciales inválidas");
+
+        }
+        // Ing_JQC: Reinicia intentos fallidos y desbloqueo
+        usuario.setIntentosFallidos(0);
+        usuario.setBloqueado(false);
+        usuarioRepository.save(usuario);
 
         String accessToken =   jwtService.generateToken(usuario.getUsername());
         String refreshToken = jwtService.generateRefreshToken(usuario.getUsername());

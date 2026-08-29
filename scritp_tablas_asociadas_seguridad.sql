@@ -322,3 +322,39 @@ VALUES
     'Postman',
     'ACTIVA'
 );
+
+-- Ing_JQC: Consulta de auditorías registradas
+
+-- Ing_JQC: Consultar auditoría de sesiones
+
+SELECT *
+FROM seguridad.auditoria_sesion
+ORDER BY id_auditoria DESC;
+
+-- Ing_JQC: Verificar hash actualizado del usuario
+
+SELECT
+    id_usuario,
+    username,
+    password_hash
+FROM seguridad.usuario
+WHERE username = 'admin';
+
+-- Ing_JQC: Verificar hash actualizado de contraseña
+
+SELECT
+    id_usuario,
+    username,
+    password_hash
+FROM seguridad.usuario
+WHERE username = 'admin';
+
+-- Ing_JQC: Agregar control de intentos fallidos de autenticación
+
+ALTER TABLE seguridad.usuario
+ADD COLUMN intentos_fallidos INTEGER DEFAULT 0;
+
+-- Ing_JQC: Agregar indicador de bloqueo de usuario
+
+ALTER TABLE seguridad.usuario
+ADD COLUMN bloqueado BOOLEAN DEFAULT FALSE;

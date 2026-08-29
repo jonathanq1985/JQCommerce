@@ -35,4 +35,6 @@ public class Usuario {
     private Boolean estado;
 
     private Boolean bloqueado;
+    private Integer intentosFallidos;
+
 }
