@@ -15,6 +15,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ResetPasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.UnlockUserRequest;
+import com.jqdigitalsolutions.jqcommerce.auth.service.AuditoriaIntentoFallidoService;
 @Service
 public class AuthService {
 
@@ -22,17 +23,23 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuditoriaSesionService auditoriaSesionService;
+    // Ing_JQC: Servicio de auditoría de intentos fallidos
+    private final AuditoriaIntentoFallidoService auditoriaIntentoFallidoService;
     public AuthService(
             UsuarioRepository usuarioRepository,
             PasswordEncoder passwordEncoder,
             JwtService jwtService,
-            AuditoriaSesionService auditoriaSesionService) {
+            AuditoriaSesionService auditoriaSesionService,
+            AuditoriaIntentoFallidoService auditoriaIntentoFallidoService) {
 
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.auditoriaSesionService = auditoriaSesionService;
+        this.auditoriaIntentoFallidoService = auditoriaIntentoFallidoService;
+
     }
+
 
     // Ing_JQC: Autentica usuario y registra auditoría
     public LoginResponse login( LoginRequest request, String direccionIp, String userAgent) {
@@ -54,6 +61,12 @@ public class AuthService {
                 usuario.setBloqueado(true);
             }
             usuarioRepository.save(usuario);
+            // Ing_JQC: Registrar intento fallido de autenticación
+            auditoriaIntentoFallidoService.registrarIntentoFallido(
+                    request.username(),
+                    direccionIp,
+                    userAgent
+            );
             throw new RuntimeException("Credenciales inválidas");
 
         }
