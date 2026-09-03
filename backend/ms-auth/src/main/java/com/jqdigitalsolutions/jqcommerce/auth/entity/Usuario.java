@@ -2,7 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.time.LocalDateTime;
 @Entity
 @Table(name = "usuario", schema = "seguridad")
 @Getter
@@ -37,4 +37,5 @@ public class Usuario {
     private Boolean bloqueado;
     private Integer intentosFallidos;
 
+    private LocalDateTime fechaBloqueo;
 }

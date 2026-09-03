@@ -15,6 +15,7 @@ import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ForgotPasswordResponse;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.ResetPasswordRequest;
 import com.jqdigitalsolutions.jqcommerce.auth.dto.UnlockUserRequest;
+import java.time.LocalDateTime;
 import com.jqdigitalsolutions.jqcommerce.auth.service.AuditoriaIntentoFallidoService;
 @Service
 public class AuthService {
@@ -51,14 +52,25 @@ public class AuthService {
                         )
                 );
 
-        // Ing_JQC: Valida si el usuario está bloqueado
+        // Ing_JQC: Valida bloqueo temporal del usuario
         if(Boolean.TRUE.equals(usuario.getBloqueado())) {
-             throw new RuntimeException("Usuario bloqueado");
+            LocalDateTime fechaLimite = usuario.getFechaBloqueo().plusMinutes(30);
+            if(LocalDateTime.now().isBefore(fechaLimite)) {
+                throw new RuntimeException("Usuario bloqueado");
+            }
+
+            usuario.setBloqueado(false);
+            usuario.setIntentosFallidos(0);
+            usuario.setFechaBloqueo(null);
+            usuarioRepository.save(usuario);
+
         }
         if(!passwordEncoder.matches(request.password(), usuario.getPasswordHash())) {
             usuario.setIntentosFallidos(usuario.getIntentosFallidos() + 1);
             if(usuario.getIntentosFallidos() >= 3) {
                 usuario.setBloqueado(true);
+                usuario.setFechaBloqueo(LocalDateTime.now());
+
             }
             usuarioRepository.save(usuario);
             // Ing_JQC: Registrar intento fallido de autenticación
