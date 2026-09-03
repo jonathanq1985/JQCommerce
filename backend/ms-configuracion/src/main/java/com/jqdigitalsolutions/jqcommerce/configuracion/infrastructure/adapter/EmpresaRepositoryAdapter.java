@@ -83,5 +83,9 @@ public class EmpresaRepositoryAdapter implements EmpresaRepositoryPort {
                         entity.getDireccion(),
                         entity.getTelefono(),
                         entity.getCorreo(),
+                        entity.getMonedaPrincipal(),
+                        entity.getEstado()
+                ));
+
     }
 }
