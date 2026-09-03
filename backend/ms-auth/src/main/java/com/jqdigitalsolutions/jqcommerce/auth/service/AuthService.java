@@ -26,19 +26,20 @@ public class AuthService {
     private final AuditoriaSesionService auditoriaSesionService;
     // Ing_JQC: Servicio de auditoría de intentos fallidos
     private final AuditoriaIntentoFallidoService auditoriaIntentoFallidoService;
+    private final EmailService emailService;
     public AuthService(
             UsuarioRepository usuarioRepository,
             PasswordEncoder passwordEncoder,
             JwtService jwtService,
             AuditoriaSesionService auditoriaSesionService,
-            AuditoriaIntentoFallidoService auditoriaIntentoFallidoService) {
+            AuditoriaIntentoFallidoService auditoriaIntentoFallidoService, EmailService emailService) {
 
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.auditoriaSesionService = auditoriaSesionService;
         this.auditoriaIntentoFallidoService = auditoriaIntentoFallidoService;
-
+        this.emailService = emailService;
     }
 
 
@@ -166,11 +167,15 @@ public class AuthService {
                         )
                         .orElseThrow();
 
-        String resetToken =
-                jwtService
-                        .generatePasswordResetToken(
-                                usuario.getUsername()
-                        );
+        String resetToken =  jwtService.generatePasswordResetToken(usuario.getUsername());
+        String enlace = "http://localhost:4200/reset-password?token=" + resetToken;
+        emailService.enviarCorreo(
+                usuario.getCorreo(),
+                "Recuperación de contraseña JQCommerce",
+                "Estimado usuario.\n\n"
+                        + "Use el siguiente enlace:\n\n"
+                        + enlace
+        );
 
         return new ForgotPasswordResponse(resetToken);
     }
