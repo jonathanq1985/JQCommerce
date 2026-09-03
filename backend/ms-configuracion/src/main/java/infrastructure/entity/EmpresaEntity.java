@@ -1,10 +1,6 @@
 package com.jqdigitalsolutions.jqcommerce.configuracion.infrastructure.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,11 +25,13 @@ public class EmpresaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEmpresa;
 
-    private String ruc;
+    private String codigo;
 
     private String razonSocial;
 
     private String nombreComercial;
+
+    private String ruc;
 
     private String direccion;
 
@@ -41,8 +39,12 @@ public class EmpresaEntity {
 
     private String correo;
 
+    private String monedaPrincipal;
+
     private Boolean estado;
 
     private LocalDateTime fechaCreacion;
+
+    private LocalDateTime fechaActualizacion;
 
 }
