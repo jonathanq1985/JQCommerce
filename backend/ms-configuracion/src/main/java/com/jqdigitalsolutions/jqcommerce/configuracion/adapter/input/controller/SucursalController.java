@@ -2,10 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.SucursalRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.SucursalResponse;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ActualizarSucursalUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarSucursalPorIdUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarSucursalesUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarSucursalUseCase;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.*;
 import com.jqdigitalsolutions.jqcommerce.configuracion.domain.model.Sucursal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,16 +22,19 @@ public class SucursalController {
     private final ListarSucursalesUseCase listarSucursalesUseCase;
     private final BuscarSucursalPorIdUseCase buscarSucursalPorIdUseCase;
     private final ActualizarSucursalUseCase actualizarSucursalUseCase;
+    private final DesactivarSucursalUseCase desactivarSucursalUseCase;
     public SucursalController(
             RegistrarSucursalUseCase registrarSucursalUseCase,
             ListarSucursalesUseCase listarSucursalesUseCase,
             BuscarSucursalPorIdUseCase buscarSucursalPorIdUseCase,
-            ActualizarSucursalUseCase actualizarSucursalUseCase) {
+            ActualizarSucursalUseCase actualizarSucursalUseCase,
+            DesactivarSucursalUseCase desactivarSucursalUseCase) {
 
         this.registrarSucursalUseCase = registrarSucursalUseCase;
         this.listarSucursalesUseCase = listarSucursalesUseCase;
         this.buscarSucursalPorIdUseCase=buscarSucursalPorIdUseCase;
         this.actualizarSucursalUseCase=actualizarSucursalUseCase;
+        this.desactivarSucursalUseCase = desactivarSucursalUseCase;
 
     }
 
@@ -155,6 +155,15 @@ public class SucursalController {
                 sucursalActualizada.getCorreo(),
                 sucursalActualizada.getEstado()
         );
+
+    }
+
+    @PatchMapping("/{id}/desactivar")
+    public void desactivarSucursal(@PathVariable Long id) {
+
+        LOGGER.info("Desactivando sucursal con id {}",
+                id);
+        desactivarSucursalUseCase.ejecutar(id);
 
     }
 
