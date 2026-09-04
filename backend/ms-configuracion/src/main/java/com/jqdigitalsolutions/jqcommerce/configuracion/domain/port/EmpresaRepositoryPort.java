@@ -13,5 +13,5 @@ public interface EmpresaRepositoryPort {
     Empresa guardar(Empresa empresa);
     List<Empresa> listar();
     Optional<Empresa> buscarPorId(Long idEmpresa);
-
+    Empresa actualizar(Empresa empresa);
 }

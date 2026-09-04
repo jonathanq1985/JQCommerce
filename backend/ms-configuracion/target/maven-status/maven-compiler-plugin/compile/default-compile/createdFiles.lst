@@ -1,14 +1,15 @@
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\EmpresaRepositoryPort.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpresasUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaResponse.class
+com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\EmpresaController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa$EmpresaBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\EmpresaRepositoryAdapter.class
 com\jqdigitalsolutions\jqcommerce\configuracion\MsConfiguracionApplication.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarEmpresaPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\EmpresaJpaRepository.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\EmpresaEntity$EmpresaEntityBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaRequest.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarEmpresaUseCase.class
-com\jqdigitalsolutions\jqcommerce\configuracion\apdater\input\controller\EmpresaController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\EmpresaEntity.class

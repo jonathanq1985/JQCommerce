@@ -5,9 +5,10 @@ import com.jqdigitalsolutions.jqcommerce.configuracion.domain.port.EmpresaReposi
 import com.jqdigitalsolutions.jqcommerce.configuracion.infrastructure.entity.EmpresaEntity;
 import com.jqdigitalsolutions.jqcommerce.configuracion.infrastructure.repository.EmpresaJpaRepository;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties.UiService.LOGGER;
 
 // Ing_JQC: Adaptador de persistencia de empresas
 // Tecnología: Arquitectura Hexagonal
@@ -50,7 +51,6 @@ public class EmpresaRepositoryAdapter implements EmpresaRepositoryPort {
 
     @Override
     public List<Empresa> listar() {
-
         return empresaJpaRepository.findAll()
                 .stream()
                 .map(entity -> new Empresa(
@@ -71,7 +71,6 @@ public class EmpresaRepositoryAdapter implements EmpresaRepositoryPort {
 
     @Override
     public Optional<Empresa> buscarPorId(Long idEmpresa) {
-
         return empresaJpaRepository
                 .findById(idEmpresa)
                 .map(entity -> new Empresa(
@@ -86,6 +85,53 @@ public class EmpresaRepositoryAdapter implements EmpresaRepositoryPort {
                         entity.getMonedaPrincipal(),
                         entity.getEstado()
                 ));
+
+    }
+
+    @Override
+    public Empresa actualizar(Empresa empresa) {
+        EmpresaEntity entity =
+                empresaJpaRepository.findById(
+                        empresa.getIdEmpresa()
+                ).orElseThrow(() ->
+                        new RuntimeException(
+                                "Empresa no encontrada"
+                        )
+                );
+
+        entity.setCodigo(empresa.getCodigo());
+
+        entity.setRazonSocial(
+                empresa.getRazonSocial()
+        );
+
+        entity.setNombreComercial(
+                empresa.getNombreComercial()
+        );
+
+        entity.setRuc(
+                empresa.getRuc()
+        );
+
+        entity.setDireccion(
+                empresa.getDireccion()
+        );
+
+        entity.setTelefono(
+                empresa.getTelefono()
+        );
+
+        entity.setCorreo(
+                empresa.getCorreo()
+        );
+
+        entity.setMonedaPrincipal(
+                empresa.getMonedaPrincipal()
+        );
+
+        empresaJpaRepository.save(entity);
+
+        return empresa;
 
     }
 }

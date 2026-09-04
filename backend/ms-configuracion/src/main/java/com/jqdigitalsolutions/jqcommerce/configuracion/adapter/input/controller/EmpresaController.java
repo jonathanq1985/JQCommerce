@@ -1,7 +1,8 @@
-package com.jqdigitalsolutions.jqcommerce.configuracion.apdater.input.controller;
+package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller;
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.EmpresaRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.EmpresaResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ActualizarEmpresaUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarEmpresaPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarEmpresasUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarEmpresaUseCase;
@@ -24,17 +25,19 @@ public class EmpresaController {
     private final RegistrarEmpresaUseCase registrarEmpresaUseCase;
     private final ListarEmpresasUseCase listarEmpresasUseCase;
     private final BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase;
+    private final ActualizarEmpresaUseCase actualizarEmpresaUseCase;
     private static final Logger LOGGER =
             LoggerFactory.getLogger(EmpresaController.class);
     public EmpresaController(
             RegistrarEmpresaUseCase registrarEmpresaUseCase,
             ListarEmpresasUseCase listarEmpresasUseCase,
-            BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase) {
+            BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase,
+            ActualizarEmpresaUseCase actualizarEmpresaUseCase) {
 
         this.registrarEmpresaUseCase = registrarEmpresaUseCase;
         this.listarEmpresasUseCase = listarEmpresasUseCase;
         this.buscarEmpresaPorIdUseCase = buscarEmpresaPorIdUseCase;
-
+        this.actualizarEmpresaUseCase=actualizarEmpresaUseCase;
     }
 
 
@@ -97,8 +100,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/{id}")
-    public EmpresaResponse buscarPorId(
-            @PathVariable Long id) {
+    public EmpresaResponse buscarPorId(@PathVariable Long id) {
 
         LOGGER.info("Consultando empresa con id {}", id);
 
@@ -125,5 +127,39 @@ public class EmpresaController {
 
     }
 
+    @PutMapping("/{id}")
+    public EmpresaResponse actualizarEmpresa(
+            @PathVariable Long id,
+            @RequestBody EmpresaRequest request) {
+
+        LOGGER.info("Actualizando empresa con id {}", id);
+
+        Empresa empresa = new Empresa();
+
+        empresa.setIdEmpresa(id);
+        empresa.setCodigo(request.codigo());
+        empresa.setRazonSocial(request.razonSocial());
+        empresa.setNombreComercial(request.nombreComercial());
+        empresa.setRuc(request.ruc());
+        empresa.setDireccion(request.direccion());
+        empresa.setTelefono(request.telefono());
+        empresa.setCorreo(request.correo());
+        empresa.setMonedaPrincipal(request.monedaPrincipal());
+
+        Empresa empresaActualizada = actualizarEmpresaUseCase.ejecutar(empresa);
+        return new EmpresaResponse(
+                empresaActualizada.getIdEmpresa(),
+                empresaActualizada.getCodigo(),
+                empresaActualizada.getRazonSocial(),
+                empresaActualizada.getNombreComercial(),
+                empresaActualizada.getRuc(),
+                empresaActualizada.getDireccion(),
+                empresaActualizada.getTelefono(),
+                empresaActualizada.getCorreo(),
+                empresaActualizada.getMonedaPrincipal(),
+                empresaActualizada.getEstado()
+        );
+
+    }
 
 }
