@@ -134,7 +134,6 @@ public class EmpresaController {
             @RequestBody EmpresaRequest request) {
 
         LOGGER.info("Actualizando empresa con id {}", id);
-
         Empresa empresa = new Empresa();
 
         empresa.setIdEmpresa(id);
@@ -160,13 +159,10 @@ public class EmpresaController {
                 empresaActualizada.getMonedaPrincipal(),
                 empresaActualizada.getEstado()
         );
-
     }
 
     @PatchMapping("/{id}/desactivar")
-    public void desactivarEmpresa(
-            @PathVariable Long id) {
-
+    public void desactivarEmpresa(@PathVariable Long id) {
         LOGGER.info("Desactivando empresa con id {}",id);
         desactivarEmpresaUseCase.ejecutar(id);
 
