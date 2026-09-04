@@ -14,4 +14,6 @@ public interface EmpresaRepositoryPort {
     List<Empresa> listar();
     Optional<Empresa> buscarPorId(Long idEmpresa);
     Empresa actualizar(Empresa empresa);
+    void desactivar(Long idEmpresa);
+
 }

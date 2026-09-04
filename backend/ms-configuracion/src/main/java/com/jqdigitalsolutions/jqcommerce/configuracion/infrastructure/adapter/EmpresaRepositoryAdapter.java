@@ -134,4 +134,21 @@ public class EmpresaRepositoryAdapter implements EmpresaRepositoryPort {
         return empresa;
 
     }
+
+    @Override
+    public void desactivar(Long idEmpresa) {
+
+        EmpresaEntity entity =
+                empresaJpaRepository.findById(idEmpresa)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Empresa no encontrada"
+                                )
+                        );
+
+        entity.setEstado(false);
+
+        empresaJpaRepository.save(entity);
+
+    }
 }

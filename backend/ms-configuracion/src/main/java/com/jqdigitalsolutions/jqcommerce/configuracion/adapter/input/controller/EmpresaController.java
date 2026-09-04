@@ -2,10 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.EmpresaRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.EmpresaResponse;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ActualizarEmpresaUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarEmpresaPorIdUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarEmpresasUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarEmpresaUseCase;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.*;
 import com.jqdigitalsolutions.jqcommerce.configuracion.domain.model.Empresa;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
@@ -13,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 // Ing_JQC: Controlador de empresas
 // Tecnología: Arquitectura Hexagonal
@@ -26,18 +24,21 @@ public class EmpresaController {
     private final ListarEmpresasUseCase listarEmpresasUseCase;
     private final BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase;
     private final ActualizarEmpresaUseCase actualizarEmpresaUseCase;
+    private final DesactivarEmpresaUseCase desactivarEmpresaUseCase;
     private static final Logger LOGGER =
             LoggerFactory.getLogger(EmpresaController.class);
     public EmpresaController(
             RegistrarEmpresaUseCase registrarEmpresaUseCase,
             ListarEmpresasUseCase listarEmpresasUseCase,
             BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase,
-            ActualizarEmpresaUseCase actualizarEmpresaUseCase) {
+            ActualizarEmpresaUseCase actualizarEmpresaUseCase,
+            DesactivarEmpresaUseCase desactivarEmpresaUseCase) {
 
         this.registrarEmpresaUseCase = registrarEmpresaUseCase;
         this.listarEmpresasUseCase = listarEmpresasUseCase;
         this.buscarEmpresaPorIdUseCase = buscarEmpresaPorIdUseCase;
         this.actualizarEmpresaUseCase=actualizarEmpresaUseCase;
+        this.desactivarEmpresaUseCase = desactivarEmpresaUseCase;
     }
 
 
@@ -159,6 +160,15 @@ public class EmpresaController {
                 empresaActualizada.getMonedaPrincipal(),
                 empresaActualizada.getEstado()
         );
+
+    }
+
+    @PatchMapping("/{id}/desactivar")
+    public void desactivarEmpresa(
+            @PathVariable Long id) {
+
+        LOGGER.info("Desactivando empresa con id {}",id);
+        desactivarEmpresaUseCase.ejecutar(id);
 
     }
 

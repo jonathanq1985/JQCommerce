@@ -4,6 +4,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaRespons
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\EmpresaController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa$EmpresaBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\EmpresaRepositoryAdapter.class
 com\jqdigitalsolutions\jqcommerce\configuracion\MsConfiguracionApplication.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarEmpresaUseCase.class

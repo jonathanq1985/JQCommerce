@@ -3,6 +3,7 @@ D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolu
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaResponse.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarEmpresaUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarEmpresaPorIdUseCase.java
+D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarEmpresaUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpresasUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarEmpresaUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa.java
