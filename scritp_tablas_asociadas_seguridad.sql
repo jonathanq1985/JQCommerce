@@ -456,3 +456,11 @@ FROM configuracion.sucursal;
 SELECT *
 FROM configuracion.sucursal
 ORDER BY id_sucursal;
+
+-- Ing_JQC: Buscar sucursal por identificador
+-- Tecnología: PostgreSQL
+-- Finalidad: Consultar información de una sucursal específica
+
+SELECT *
+FROM configuracion.sucursal
+WHERE id_sucursal = 1;

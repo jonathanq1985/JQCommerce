@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.SucursalRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.SucursalResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarSucursalPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarSucursalesUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarSucursalUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.domain.model.Sucursal;
@@ -19,12 +20,15 @@ public class SucursalController {
 
     private final RegistrarSucursalUseCase registrarSucursalUseCase;
     private final ListarSucursalesUseCase listarSucursalesUseCase;
+    private final BuscarSucursalPorIdUseCase buscarSucursalPorIdUseCase;
     public SucursalController(
             RegistrarSucursalUseCase registrarSucursalUseCase,
-            ListarSucursalesUseCase listarSucursalesUseCase) {
+            ListarSucursalesUseCase listarSucursalesUseCase,
+            BuscarSucursalPorIdUseCase buscarSucursalPorIdUseCase) {
 
         this.registrarSucursalUseCase = registrarSucursalUseCase;
         this.listarSucursalesUseCase = listarSucursalesUseCase;
+        this.buscarSucursalPorIdUseCase=buscarSucursalPorIdUseCase;
 
     }
 
@@ -89,6 +93,31 @@ public class SucursalController {
                 ))
                 .toList();
 
+    }
+    @GetMapping("/{id}")
+    public SucursalResponse buscarPorId(
+            @PathVariable Long id) {
+
+        LOGGER.info("Consultando sucursal con id {}", id);
+
+        Sucursal sucursal =
+                buscarSucursalPorIdUseCase
+                        .ejecutar(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Sucursal no encontrada"
+                                )
+                        );
+        return new SucursalResponse(
+                sucursal.getIdSucursal(),
+                sucursal.getEmpresaId(),
+                sucursal.getCodigo(),
+                sucursal.getNombre(),
+                sucursal.getDireccion(),
+                sucursal.getTelefono(),
+                sucursal.getCorreo(),
+                sucursal.getEstado()
+        );
     }
 
 }

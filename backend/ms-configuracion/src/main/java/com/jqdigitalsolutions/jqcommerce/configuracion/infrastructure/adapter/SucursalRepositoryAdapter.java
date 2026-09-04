@@ -59,7 +59,18 @@ public class SucursalRepositoryAdapter      implements SucursalRepositoryPort {
     @Override
     public Optional<Sucursal> buscarPorId(Long idSucursal) {
 
-        return Optional.empty();
+        return sucursalJpaRepository
+                .findById(idSucursal)
+                .map(entity -> new Sucursal(
+                        entity.getIdSucursal(),
+                        entity.getEmpresaId(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getDireccion(),
+                        entity.getTelefono(),
+                        entity.getCorreo(),
+                        entity.getEstado()
+                ));
 
     }
 

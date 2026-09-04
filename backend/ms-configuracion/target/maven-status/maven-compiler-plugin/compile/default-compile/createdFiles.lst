@@ -1,5 +1,6 @@
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\EmpresaRepositoryPort.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\SucursalJpaRepository.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarSucursalPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpresasUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\SucursalController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaResponse.class
