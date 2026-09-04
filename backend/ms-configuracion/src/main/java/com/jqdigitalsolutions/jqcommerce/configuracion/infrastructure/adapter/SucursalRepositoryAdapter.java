@@ -74,4 +74,27 @@ public class SucursalRepositoryAdapter      implements SucursalRepositoryPort {
 
     }
 
+    @Override
+    public Sucursal actualizar(Sucursal sucursal) {
+
+        SucursalEntity entity =
+                sucursalJpaRepository.findById(
+                        sucursal.getIdSucursal()
+                ).orElseThrow(() ->
+                        new RuntimeException(
+                                "Sucursal no encontrada"
+                        )
+                );
+
+        entity.setEmpresaId(sucursal.getEmpresaId());
+        entity.setCodigo(sucursal.getCodigo());
+        entity.setNombre(sucursal.getNombre());
+        entity.setDireccion(sucursal.getDireccion());
+        entity.setTelefono(sucursal.getTelefono());
+        entity.setCorreo(sucursal.getCorreo());
+        sucursalJpaRepository.save(entity);
+        return sucursal;
+
+    }
+
 }

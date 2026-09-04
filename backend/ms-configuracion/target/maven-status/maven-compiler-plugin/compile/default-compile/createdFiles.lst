@@ -28,3 +28,4 @@ com\jqdigitalsolutions\jqcommerce\configuracion\MsConfiguracionApplication.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\SucursalRequest.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Sucursal$SucursalBuilder.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarSucursalUseCase.class

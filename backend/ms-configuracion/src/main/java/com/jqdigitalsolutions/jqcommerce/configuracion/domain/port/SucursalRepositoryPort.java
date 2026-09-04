@@ -14,5 +14,6 @@ public interface SucursalRepositoryPort {
     Sucursal guardar(Sucursal sucursal);
     List<Sucursal> listar();
     Optional<Sucursal> buscarPorId(Long idSucursal);
+    Sucursal actualizar(Sucursal sucursal);
 
 }

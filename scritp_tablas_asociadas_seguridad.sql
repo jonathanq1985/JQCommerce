@@ -464,3 +464,14 @@ ORDER BY id_sucursal;
 SELECT *
 FROM configuracion.sucursal
 WHERE id_sucursal = 1;
+
+-- Ing_JQC: Actualizar datos de sucursal
+-- Tecnología: PostgreSQL
+-- Finalidad: Modificar información de una sucursal existente
+
+UPDATE configuracion.sucursal
+SET nombre = 'Casa Matriz Actualizada',
+    direccion = 'Av. Actualizada 500',
+    telefono = '999888777',
+    correo = 'nuevo@empresa.com'
+WHERE id_sucursal = 1;
