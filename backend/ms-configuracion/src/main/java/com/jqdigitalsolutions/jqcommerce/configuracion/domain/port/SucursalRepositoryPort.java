@@ -16,4 +16,6 @@ public interface SucursalRepositoryPort {
     Optional<Sucursal> buscarPorId(Long idSucursal);
     Sucursal actualizar(Sucursal sucursal);
     void desactivar(Long idSucursal);
+    void activar(Long idSucursal);
+
 }

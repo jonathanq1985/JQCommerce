@@ -23,19 +23,22 @@ public class SucursalController {
     private final BuscarSucursalPorIdUseCase buscarSucursalPorIdUseCase;
     private final ActualizarSucursalUseCase actualizarSucursalUseCase;
     private final DesactivarSucursalUseCase desactivarSucursalUseCase;
+    private final ActivarSucursalUseCase activarSucursalUseCase;
     public SucursalController(
             RegistrarSucursalUseCase registrarSucursalUseCase,
             ListarSucursalesUseCase listarSucursalesUseCase,
             BuscarSucursalPorIdUseCase buscarSucursalPorIdUseCase,
             ActualizarSucursalUseCase actualizarSucursalUseCase,
-            DesactivarSucursalUseCase desactivarSucursalUseCase) {
+            DesactivarSucursalUseCase desactivarSucursalUseCase,
+            ActivarSucursalUseCase activarSucursalUseCase
+            ) {
 
         this.registrarSucursalUseCase = registrarSucursalUseCase;
         this.listarSucursalesUseCase = listarSucursalesUseCase;
         this.buscarSucursalPorIdUseCase=buscarSucursalPorIdUseCase;
         this.actualizarSucursalUseCase=actualizarSucursalUseCase;
         this.desactivarSucursalUseCase = desactivarSucursalUseCase;
-
+        this.activarSucursalUseCase = activarSucursalUseCase;
     }
 
     @PostMapping
@@ -164,6 +167,12 @@ public class SucursalController {
         LOGGER.info("Desactivando sucursal con id {}",
                 id);
         desactivarSucursalUseCase.ejecutar(id);
+
+    }
+    @PatchMapping("/{id}/activar")
+    public void activarSucursal(@PathVariable Long id) {
+        LOGGER.info("Activando sucursal con id {}", id);
+        activarSucursalUseCase.ejecutar(id);
 
     }
 

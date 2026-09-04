@@ -475,3 +475,31 @@ SET nombre = 'Casa Matriz Actualizada',
     telefono = '999888777',
     correo = 'nuevo@empresa.com'
 WHERE id_sucursal = 1;
+
+-- Ing_JQC: Desactivar sucursal
+-- Tecnología: PostgreSQL
+-- Finalidad: Realizar deshabilitación lógica manteniendo
+--            el historial de información.
+
+UPDATE configuracion.sucursal
+SET estado = FALSE
+WHERE id_sucursal = :idSucursal;
+
+-- Ing_JQC: Activar sucursal
+-- Tecnología: PostgreSQL
+-- Finalidad: Reactivar una sucursal previamente deshabilitada.
+
+UPDATE configuracion.sucursal
+SET estado = TRUE
+WHERE id_sucursal = 1;
+
+-- Ing_JQC: Verificar activación de sucursal
+-- Tecnología: PostgreSQL
+-- Finalidad: Confirmar que la sucursal quedó habilitada.
+
+SELECT
+    id_sucursal,
+    nombre,
+    estado
+FROM configuracion.sucursal
+WHERE id_sucursal = 1;
