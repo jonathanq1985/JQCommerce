@@ -41,7 +41,19 @@ public class SucursalRepositoryAdapter      implements SucursalRepositoryPort {
 
     @Override
     public List<Sucursal> listar() {
-        return List.of();
+        return sucursalJpaRepository.findAll()
+                .stream()
+                .map(entity -> new Sucursal(
+                        entity.getIdSucursal(),
+                        entity.getEmpresaId(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getDireccion(),
+                        entity.getTelefono(),
+                        entity.getCorreo(),
+                        entity.getEstado()
+                ))
+                .toList();
     }
 
     @Override

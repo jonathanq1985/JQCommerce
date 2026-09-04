@@ -3,12 +3,14 @@ FROM seguridad.rol;
 
 delete from seguridad.rol where  id_rol=8 and empresa_id=1;
 
+drop table configuracion.empresa;
+
 SELECT
 column_name,
 data_type
 FROM information_schema.columns
-WHERE table_schema = 'seguridad'
-AND table_name = 'rol';
+WHERE table_schema = 'configuracion'
+AND table_name = 'empresa';
 
 SELECT * FROM configuracion.empresa;
 
@@ -358,3 +360,99 @@ ADD COLUMN intentos_fallidos INTEGER DEFAULT 0;
 
 ALTER TABLE seguridad.usuario
 ADD COLUMN bloqueado BOOLEAN DEFAULT FALSE;
+
+SELECT id_empresa,
+       razon_social,
+       estado
+FROM configuracion.empresa
+WHERE id_empresa = 2;
+
+-- Ing_JQC: Desactivar empresa
+-- Tecnología: PostgreSQL
+-- Finalidad: Realizar borrado lógico de una empresa manteniendo
+--            el historial de información para auditoría.
+
+UPDATE configuracion.empresa
+SET estado = FALSE
+WHERE id_empresa = :idEmpresa;
+
+-- Ing_JQC: Activar empresa
+-- Tecnología: PostgreSQL
+-- Finalidad: Reactivar una empresa previamente deshabilitada.
+
+UPDATE configuracion.empresa
+SET estado = TRUE
+WHERE id_empresa = :idEmpresa;
+
+-- Ing_JQC: Activar empresa
+-- Tecnología: PostgreSQL
+-- Finalidad: Reactivar una empresa previamente deshabilitada.
+
+UPDATE configuracion.empresa
+SET estado = TRUE
+WHERE id_empresa = :idEmpresa;
+
+-- Ing_JQC: Consultar estado de empresa
+-- Finalidad: Verificar activación de empresa
+
+SELECT
+    id_empresa,
+    razon_social,
+    estado
+FROM configuracion.empresa
+WHERE id_empresa = 2;
+
+-- Ing_JQC: Tabla de sucursales
+-- Tecnología: PostgreSQL
+-- Finalidad: Administrar las sucursales de cada empresa
+
+CREATE TABLE configuracion.sucursal
+(
+    id_sucursal BIGSERIAL PRIMARY KEY,
+
+    id_empresa BIGINT NOT NULL,
+
+    codigo VARCHAR(20) NOT NULL,
+
+    nombre VARCHAR(150) NOT NULL,
+
+    direccion VARCHAR(250),
+
+    telefono VARCHAR(30),
+
+    correo VARCHAR(150),
+
+    principal BOOLEAN NOT NULL DEFAULT FALSE,
+
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_sucursal_empresa
+        FOREIGN KEY (id_empresa)
+        REFERENCES configuracion.empresa(id_empresa)
+);
+
+select *  from configuracion.sucursal
+
+-- Ing_JQC: Agregar correo a sucursal
+-- Tecnología: PostgreSQL
+-- Finalidad: Permitir registrar correo de contacto por sucursal
+
+ALTER TABLE configuracion.sucursal
+ADD COLUMN correo VARCHAR(150);
+
+
+-- Ing_JQC: Consultar sucursales registradas
+-- Finalidad: Verificar persistencia de sucursales
+
+SELECT *
+FROM configuracion.sucursal;
+
+-- Ing_JQC: Consultar sucursales registradas
+-- Tecnología: PostgreSQL
+-- Finalidad: Obtener todas las sucursales disponibles
+
+SELECT *
+FROM configuracion.sucursal
+ORDER BY id_sucursal;

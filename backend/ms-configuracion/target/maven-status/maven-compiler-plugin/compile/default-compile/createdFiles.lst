@@ -4,6 +4,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpres
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\SucursalController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaResponse.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa$EmpresaBuilder.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarSucursalesUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\SucursalRepositoryAdapter.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarSucursalUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\SucursalEntity.class
