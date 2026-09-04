@@ -15,5 +15,10 @@ public interface EmpresaRepositoryPort {
     Optional<Empresa> buscarPorId(Long idEmpresa);
     Empresa actualizar(Empresa empresa);
     void desactivar(Long idEmpresa);
+    // Ing_JQC: Activar empresa
+// Tecnología: Arquitectura Hexagonal
+// Finalidad: Reactivar una empresa previamente deshabilitada
+
+    void activar(Long idEmpresa);
 
 }

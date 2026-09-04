@@ -25,6 +25,8 @@ public class EmpresaController {
     private final BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase;
     private final ActualizarEmpresaUseCase actualizarEmpresaUseCase;
     private final DesactivarEmpresaUseCase desactivarEmpresaUseCase;
+    private final ActivarEmpresaUseCase activarEmpresaUseCase;
+
     private static final Logger LOGGER =
             LoggerFactory.getLogger(EmpresaController.class);
     public EmpresaController(
@@ -32,13 +34,15 @@ public class EmpresaController {
             ListarEmpresasUseCase listarEmpresasUseCase,
             BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase,
             ActualizarEmpresaUseCase actualizarEmpresaUseCase,
-            DesactivarEmpresaUseCase desactivarEmpresaUseCase) {
+            DesactivarEmpresaUseCase desactivarEmpresaUseCase,
+            ActivarEmpresaUseCase activarEmpresaUseCase) {
 
         this.registrarEmpresaUseCase = registrarEmpresaUseCase;
         this.listarEmpresasUseCase = listarEmpresasUseCase;
         this.buscarEmpresaPorIdUseCase = buscarEmpresaPorIdUseCase;
         this.actualizarEmpresaUseCase=actualizarEmpresaUseCase;
         this.desactivarEmpresaUseCase = desactivarEmpresaUseCase;
+        this.activarEmpresaUseCase = activarEmpresaUseCase;
     }
 
 
@@ -165,6 +169,13 @@ public class EmpresaController {
     public void desactivarEmpresa(@PathVariable Long id) {
         LOGGER.info("Desactivando empresa con id {}",id);
         desactivarEmpresaUseCase.ejecutar(id);
+    }
+    @PatchMapping("/{id}/activar")
+    public void activarEmpresa(
+            @PathVariable Long id) {
+
+        LOGGER.info("Activando empresa con id {}", id);
+        activarEmpresaUseCase.ejecutar(id);
 
     }
 

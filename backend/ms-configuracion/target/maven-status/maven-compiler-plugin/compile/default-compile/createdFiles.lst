@@ -11,6 +11,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarEm
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarEmpresaPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\EmpresaJpaRepository.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\EmpresaEntity$EmpresaEntityBuilder.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActivarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaRequest.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\EmpresaEntity.class
