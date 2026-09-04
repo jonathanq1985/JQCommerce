@@ -1,4 +1,5 @@
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\EmpresaRepositoryPort.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpresasUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaResponse.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa$EmpresaBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa.class

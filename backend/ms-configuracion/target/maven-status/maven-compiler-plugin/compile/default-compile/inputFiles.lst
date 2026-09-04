@@ -1,6 +1,7 @@
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\apdater\input\controller\EmpresaController.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\apdater\input\dto\EmpresaRequest.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\apdater\input\dto\EmpresaResponse.java
+D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpresasUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarEmpresaUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\EmpresaRepositoryPort.java
