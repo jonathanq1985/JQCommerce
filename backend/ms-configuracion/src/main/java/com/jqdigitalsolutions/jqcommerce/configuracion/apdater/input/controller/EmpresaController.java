@@ -2,13 +2,15 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.apdater.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.EmpresaRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.EmpresaResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarEmpresaPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarEmpresasUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarEmpresaUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.domain.model.Empresa;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 // Ing_JQC: Controlador de empresas
@@ -21,16 +23,20 @@ public class EmpresaController {
 
     private final RegistrarEmpresaUseCase registrarEmpresaUseCase;
     private final ListarEmpresasUseCase listarEmpresasUseCase;
+    private final BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase;
     private static final Logger LOGGER =
             LoggerFactory.getLogger(EmpresaController.class);
     public EmpresaController(
             RegistrarEmpresaUseCase registrarEmpresaUseCase,
-            ListarEmpresasUseCase listarEmpresasUseCase) {
+            ListarEmpresasUseCase listarEmpresasUseCase,
+            BuscarEmpresaPorIdUseCase buscarEmpresaPorIdUseCase) {
 
         this.registrarEmpresaUseCase = registrarEmpresaUseCase;
         this.listarEmpresasUseCase = listarEmpresasUseCase;
+        this.buscarEmpresaPorIdUseCase = buscarEmpresaPorIdUseCase;
 
     }
+
 
     // Ing_JQC: Registrar empresa
     // Tecnología: Arquitectura Hexagonal
@@ -67,7 +73,7 @@ public class EmpresaController {
 
     @GetMapping
     public List<EmpresaResponse> listarEmpresas() {
-
+        System.out.println("CONSULTANDO LISTADO DE EMPRESAS");
         LOGGER.info("Consultando listado de empresas");
         List<Empresa> empresas = listarEmpresasUseCase.ejecutar();
 
@@ -87,6 +93,35 @@ public class EmpresaController {
                         empresa.getEstado()
                 ))
                 .toList();
+
+    }
+
+    @GetMapping("/{id}")
+    public EmpresaResponse buscarPorId(
+            @PathVariable Long id) {
+
+        LOGGER.info("Consultando empresa con id {}", id);
+
+        Empresa empresa =
+                buscarEmpresaPorIdUseCase
+                        .ejecutar(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Empresa no encontrada"
+                                ));
+
+        return new EmpresaResponse(
+                empresa.getIdEmpresa(),
+                empresa.getCodigo(),
+                empresa.getRazonSocial(),
+                empresa.getNombreComercial(),
+                empresa.getRuc(),
+                empresa.getDireccion(),
+                empresa.getTelefono(),
+                empresa.getCorreo(),
+                empresa.getMonedaPrincipal(),
+                empresa.getEstado()
+        );
 
     }
 
