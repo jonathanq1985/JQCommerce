@@ -1,8 +1,11 @@
+com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\TipoCambioRepositoryPort.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\EmpresaRepositoryPort.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpresasUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Moneda$MonedaBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\MonedaEntity.class
+com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\TipoCambioController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\SucursalController.class
+com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\TipoCambioEntity$TipoCambioEntityBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarMonedaPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa$EmpresaBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\MonedaEntity$MonedaEntityBuilder.class
@@ -16,7 +19,10 @@ com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarMoneda
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActivarSucursalUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActivarMonedaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarMonedaUseCase.class
+com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\TipoCambio$TipoCambioBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\MonedaJpaRepository.class
+com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\TipoCambioRepositoryAdapter.class
+com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\TipoCambioEntity.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\EmpresaRepositoryAdapter.class
 com\jqdigitalsolutions\jqcommerce\configuracion\MsConfiguracionApplication.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\SucursalRequest.class
@@ -25,6 +31,8 @@ com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarSu
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\SucursalJpaRepository.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarSucursalPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarMonedaUseCase.class
+com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\TipoCambioRequest.class
+com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\TipoCambioJpaRepository.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaResponse.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\MonedaResponse.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarSucursalUseCase.class
@@ -37,6 +45,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\MonedaRep
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Sucursal.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\MonedaController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\EmpresaEntity.class
+com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\TipoCambio.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\MonedaRepositoryPort.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\SucursalRepositoryPort.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\MonedaRequest.class
@@ -44,6 +53,8 @@ com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\SucursalEn
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\EmpresaController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\SucursalResponse.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa.class
+com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\TipoCambioResponse.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Sucursal$SucursalBuilder.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarTipoCambioUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Moneda.class
