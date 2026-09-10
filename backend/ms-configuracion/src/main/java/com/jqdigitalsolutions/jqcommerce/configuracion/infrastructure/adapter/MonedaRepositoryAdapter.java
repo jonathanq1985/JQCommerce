@@ -42,11 +42,19 @@ public class MonedaRepositoryAdapter implements MonedaRepositoryPort {
         return moneda;
 
     }
-
     @Override
     public List<Moneda> listar() {
 
-        return List.of();
+        return monedaJpaRepository.findAll()
+                .stream()
+                .map(entity -> new Moneda(
+                        entity.getIdMoneda(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getSimbolo(),
+                        entity.getEstado()
+                ))
+                .toList();
 
     }
 

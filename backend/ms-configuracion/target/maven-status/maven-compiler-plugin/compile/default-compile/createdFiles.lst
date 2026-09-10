@@ -20,6 +20,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\Empres
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\EmpresaEntity$EmpresaEntityBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActivarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaRequest.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarMonedasUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActivarSucursalUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\MonedaRepositoryAdapter.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Sucursal.class
