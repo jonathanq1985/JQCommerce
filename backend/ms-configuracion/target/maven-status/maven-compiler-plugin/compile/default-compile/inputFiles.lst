@@ -29,6 +29,7 @@ D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolu
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarSucursalUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpresasUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarMonedasUseCase.java
+D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarParametroSistemaUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarSucursalesUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarTipoCambioUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarEmpresaUseCase.java

@@ -51,11 +51,19 @@ public class ParametroSistemaRepositoryAdapter implements ParametroSistemaReposi
 
     @Override
     public List<ParametroSistema> listar() {
-
-        return List.of();
+        return parametroSistemaJpaRepository.findAll()
+                .stream()
+                .map(entity -> new ParametroSistema(
+                        entity.getIdParametro(),
+                        entity.getEmpresaId(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getValor(),
+                        entity.getDescripcion()
+                ))
+                .toList();
 
     }
-
     @Override
     public Optional<ParametroSistema> buscarPorId(
             Long idParametro) {

@@ -42,6 +42,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\TipoCambioRequ
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\TipoCambioJpaRepository.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaResponse.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\MonedaResponse.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarParametroSistemaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\port\ParametroSistemaRepositoryPort.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarSucursalUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\SucursalEntity.class
