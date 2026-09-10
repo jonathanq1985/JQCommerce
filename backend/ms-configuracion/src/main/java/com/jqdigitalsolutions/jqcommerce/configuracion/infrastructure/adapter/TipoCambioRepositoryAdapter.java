@@ -6,6 +6,7 @@ import com.jqdigitalsolutions.jqcommerce.configuracion.infrastructure.entity.Tip
 import com.jqdigitalsolutions.jqcommerce.configuracion.infrastructure.repository.TipoCambioJpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,6 +86,21 @@ public class TipoCambioRepositoryAdapter
                         entity.getValor(),
                         entity.getFechaVigencia()
                 ));
+
+    }
+
+    @Override
+    public boolean existeTipoCambio(
+            Long monedaOrigenId,
+            Long monedaDestinoId,
+            LocalDate fechaVigencia) {
+
+        return tipoCambioJpaRepository
+                .existsByMonedaOrigenIdAndMonedaDestinoIdAndFechaVigencia(
+                        monedaOrigenId,
+                        monedaDestinoId,
+                        fechaVigencia
+                );
 
     }
 }

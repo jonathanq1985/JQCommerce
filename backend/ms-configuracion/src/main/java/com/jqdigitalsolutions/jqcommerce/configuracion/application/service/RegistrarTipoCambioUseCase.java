@@ -20,12 +20,21 @@ public class RegistrarTipoCambioUseCase {
             TipoCambio tipoCambio) {
 
         if (tipoCambio.getMonedaOrigenId()
-                .equals(
-                        tipoCambio.getMonedaDestinoId()
-                )) {
+                .equals(tipoCambio.getMonedaDestinoId())) {
 
             throw new RuntimeException(
                     "La moneda origen y destino no pueden ser iguales"
+            );
+
+        }
+
+        if (tipoCambioRepositoryPort.existeTipoCambio(
+                tipoCambio.getMonedaOrigenId(),
+                tipoCambio.getMonedaDestinoId(),
+                tipoCambio.getFechaVigencia())) {
+
+            throw new RuntimeException(
+                    "Ya existe un tipo de cambio para esa fecha"
             );
 
         }

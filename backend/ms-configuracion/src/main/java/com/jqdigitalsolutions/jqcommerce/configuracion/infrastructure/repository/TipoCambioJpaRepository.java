@@ -4,8 +4,14 @@ import com.jqdigitalsolutions.jqcommerce.configuracion.infrastructure.entity.Tip
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TipoCambioJpaRepository
-        extends JpaRepository<TipoCambioEntity, Long> {
+import java.time.LocalDate;
 
+@Repository
+public interface TipoCambioJpaRepository  extends JpaRepository<TipoCambioEntity, Long> {
+
+    boolean existsByMonedaOrigenIdAndMonedaDestinoIdAndFechaVigencia(
+            Long monedaOrigenId,
+            Long monedaDestinoId,
+            LocalDate fechaVigencia
+    );
 }
