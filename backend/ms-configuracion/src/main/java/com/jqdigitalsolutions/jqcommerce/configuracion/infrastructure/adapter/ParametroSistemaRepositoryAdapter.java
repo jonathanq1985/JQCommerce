@@ -81,4 +81,43 @@ public class ParametroSistemaRepositoryAdapter implements ParametroSistemaReposi
 
     }
 
+    @Override
+    public ParametroSistema actualizar(
+            ParametroSistema parametroSistema) {
+
+        ParametroSistemaEntity entity =
+                parametroSistemaJpaRepository
+                        .findById(
+                                parametroSistema.getIdParametro()
+                        )
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Parametro del sistema no encontrado"
+                                )
+                        );
+
+        entity.setEmpresaId(
+                parametroSistema.getEmpresaId()
+        );
+
+        entity.setCodigo(
+                parametroSistema.getCodigo()
+        );
+
+        entity.setNombre(
+                parametroSistema.getNombre()
+        );
+
+        entity.setValor(parametroSistema.getValor());
+
+        entity.setDescripcion(
+                parametroSistema.getDescripcion()
+        );
+
+        parametroSistemaJpaRepository.save(entity);
+
+        return parametroSistema;
+
+    }
+
 }

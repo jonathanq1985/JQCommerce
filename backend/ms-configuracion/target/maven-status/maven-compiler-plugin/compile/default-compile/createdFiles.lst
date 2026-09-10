@@ -49,6 +49,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarSuc
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\SucursalEntity.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarMonedaUseCase.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarParametroSistemaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarEmpresaPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\ParametroSistemaEntity.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarTipoCambioUseCase.class

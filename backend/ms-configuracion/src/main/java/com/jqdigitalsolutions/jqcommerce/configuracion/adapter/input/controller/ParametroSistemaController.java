@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.ParametroSistemaRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.ParametroSistemaResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ActualizarParametroSistemaUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarParametroSistemaPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarParametroSistemaUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarParametroSistemaUseCase;
@@ -24,11 +25,14 @@ public class ParametroSistemaController {
             registrarParametroSistemaUseCase;
     private final ListarParametroSistemaUseCase listarParametroSistemaUseCase;
     private final BuscarParametroSistemaPorIdUseCase    buscarParametroSistemaPorIdUseCase;
+    private final ActualizarParametroSistemaUseCase
+            actualizarParametroSistemaUseCase;
     //contructor
     public ParametroSistemaController(
             RegistrarParametroSistemaUseCase registrarParametroSistemaUseCase,
             ListarParametroSistemaUseCase listarParametroSistemaUseCase,
-            BuscarParametroSistemaPorIdUseCase buscarParametroSistemaPorIdUseCase) {
+            BuscarParametroSistemaPorIdUseCase buscarParametroSistemaPorIdUseCase,
+            ActualizarParametroSistemaUseCase actualizarParametroSistemaUseCase) {
 
         this.registrarParametroSistemaUseCase =
                 registrarParametroSistemaUseCase;
@@ -39,6 +43,8 @@ public class ParametroSistemaController {
         this.buscarParametroSistemaPorIdUseCase =
                 buscarParametroSistemaPorIdUseCase;
 
+        this.actualizarParametroSistemaUseCase =
+                actualizarParametroSistemaUseCase;
     }
 
     @PostMapping
@@ -136,6 +142,55 @@ public class ParametroSistemaController {
                 parametro.getNombre(),
                 parametro.getValor(),
                 parametro.getDescripcion()
+        );
+
+    }
+    @PutMapping("/{id}")
+    public ParametroSistemaResponse actualizarParametroSistema(
+            @PathVariable Long id,
+            @RequestBody ParametroSistemaRequest request) {
+
+        LOGGER.info(
+                "Actualizando parametro del sistema con id {}",
+                id
+        );
+
+        ParametroSistema parametro =
+                new ParametroSistema();
+
+        parametro.setIdParametro(id);
+
+        parametro.setEmpresaId(
+                request.empresaId()
+        );
+
+        parametro.setCodigo(
+                request.codigo()
+        );
+
+        parametro.setNombre(
+                request.nombre()
+        );
+
+        parametro.setValor(
+                request.valor()
+        );
+
+        parametro.setDescripcion(
+                request.descripcion()
+        );
+
+        ParametroSistema actualizado =
+                actualizarParametroSistemaUseCase
+                        .ejecutar(parametro);
+
+        return new ParametroSistemaResponse(
+                actualizado.getIdParametro(),
+                actualizado.getEmpresaId(),
+                actualizado.getCodigo(),
+                actualizado.getNombre(),
+                actualizado.getValor(),
+                actualizado.getDescripcion()
         );
 
     }

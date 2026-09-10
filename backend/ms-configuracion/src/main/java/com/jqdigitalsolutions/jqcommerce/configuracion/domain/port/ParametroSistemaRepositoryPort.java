@@ -11,5 +11,7 @@ public interface ParametroSistemaRepositoryPort {
 
     List<ParametroSistema> listar();
     Optional<ParametroSistema> buscarPorId(Long idParametro);
-
+    ParametroSistema actualizar(
+            ParametroSistema parametroSistema
+    );
 }
