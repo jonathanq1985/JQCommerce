@@ -76,7 +76,15 @@ public class TipoCambioRepositoryAdapter
     public Optional<TipoCambio> buscarPorId(
             Long idTipoCambio) {
 
-        return Optional.empty();
+        return tipoCambioJpaRepository
+                .findById(idTipoCambio)
+                .map(entity -> new TipoCambio(
+                        entity.getIdTipoCambio(),
+                        entity.getMonedaOrigenId(),
+                        entity.getMonedaDestinoId(),
+                        entity.getValor(),
+                        entity.getFechaVigencia()
+                ));
 
     }
 }

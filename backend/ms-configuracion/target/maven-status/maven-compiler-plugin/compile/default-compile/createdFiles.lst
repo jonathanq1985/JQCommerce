@@ -10,6 +10,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarMoneda
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa$EmpresaBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\MonedaEntity$MonedaEntityBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarSucursalesUseCase.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarTipoCambioPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\SucursalRepositoryAdapter.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarSucursalUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\EmpresaJpaRepository.class

@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.TipoCambioRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.TipoCambioResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarTipoCambioPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarTipoCambioUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarTipoCambioUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.domain.model.TipoCambio;
@@ -20,14 +21,18 @@ public class TipoCambioController {
 
     private final RegistrarTipoCambioUseCase registrarTipoCambioUseCase;
     private final ListarTipoCambioUseCase listarTipoCambioUseCase;
+    private final BuscarTipoCambioPorIdUseCase buscarTipoCambioPorIdUseCase;
     public TipoCambioController(
             RegistrarTipoCambioUseCase registrarTipoCambioUseCase,
-            ListarTipoCambioUseCase listarTipoCambioUseCase) {
+            ListarTipoCambioUseCase listarTipoCambioUseCase,
+            BuscarTipoCambioPorIdUseCase buscarTipoCambioPorIdUseCase) {
 
         this.registrarTipoCambioUseCase = registrarTipoCambioUseCase;
         this.listarTipoCambioUseCase = listarTipoCambioUseCase;
+        this.buscarTipoCambioPorIdUseCase = buscarTipoCambioPorIdUseCase;
 
     }
+
 
     @PostMapping
     public TipoCambioResponse registrarTipoCambio(
@@ -84,6 +89,30 @@ public class TipoCambioController {
                         tipoCambio.getFechaVigencia()
                 ))
                 .toList();
+
+    }
+    @GetMapping("/{id}")
+    public TipoCambioResponse buscarPorId(
+            @PathVariable Long id) {
+
+        LOGGER.info("Consultando tipo de cambio con id {}", id);
+
+        TipoCambio tipoCambio =
+                buscarTipoCambioPorIdUseCase
+                        .ejecutar(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Tipo de cambio no encontrado"
+                                )
+                        );
+
+        return new TipoCambioResponse(
+                tipoCambio.getIdTipoCambio(),
+                tipoCambio.getMonedaOrigenId(),
+                tipoCambio.getMonedaDestinoId(),
+                tipoCambio.getValor(),
+                tipoCambio.getFechaVigencia()
+        );
 
     }
 
