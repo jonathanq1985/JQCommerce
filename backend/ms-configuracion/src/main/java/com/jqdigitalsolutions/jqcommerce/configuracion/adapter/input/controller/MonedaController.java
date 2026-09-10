@@ -22,18 +22,21 @@ public class MonedaController {
     private final BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase;
     private final ActualizarMonedaUseCase actualizarMonedaUseCase;
     private final DesactivarMonedaUseCase desactivarMonedaUseCase;
+    private final ActivarMonedaUseCase activarMonedaUseCase;
     public MonedaController(
             RegistrarMonedaUseCase registrarMonedaUseCase,
             ListarMonedasUseCase listarMonedasUseCase,
             BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase,
             ActualizarMonedaUseCase actualizarMonedaUseCase,
-            DesactivarMonedaUseCase desactivarMonedaUseCase) {
+            DesactivarMonedaUseCase desactivarMonedaUseCase,
+            ActivarMonedaUseCase activarMonedaUseCase) {
 
         this.registrarMonedaUseCase = registrarMonedaUseCase;
         this.listarMonedasUseCase = listarMonedasUseCase;
         this.buscarMonedaPorIdUseCase = buscarMonedaPorIdUseCase;
         this.actualizarMonedaUseCase = actualizarMonedaUseCase;
         this.desactivarMonedaUseCase = desactivarMonedaUseCase;
+        this.activarMonedaUseCase = activarMonedaUseCase;
 
     }
 
@@ -138,6 +141,14 @@ public class MonedaController {
     public void desactivarMoneda(@PathVariable Long id) {
         LOGGER.info("Desactivando moneda con id {}", id);
         desactivarMonedaUseCase.ejecutar(id);
+
+    }
+    @PatchMapping("/{id}/activar")
+    public void activarMoneda(@PathVariable Long id) {
+
+        LOGGER.info("Activando moneda con id {}", id);
+
+        activarMonedaUseCase.ejecutar(id);
 
     }
 }
