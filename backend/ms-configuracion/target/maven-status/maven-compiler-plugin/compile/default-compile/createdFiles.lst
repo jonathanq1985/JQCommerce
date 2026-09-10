@@ -40,6 +40,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\SucursalEn
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarEmpresaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarMonedaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarEmpresaPorIdUseCase.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarTipoCambioUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\EmpresaRequest.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\MonedaRepositoryAdapter.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Sucursal.class

@@ -59,7 +59,16 @@ public class TipoCambioRepositoryAdapter
     @Override
     public List<TipoCambio> listar() {
 
-        return List.of();
+        return tipoCambioJpaRepository.findAll()
+                .stream()
+                .map(entity -> new TipoCambio(
+                        entity.getIdTipoCambio(),
+                        entity.getMonedaOrigenId(),
+                        entity.getMonedaDestinoId(),
+                        entity.getValor(),
+                        entity.getFechaVigencia()
+                ))
+                .toList();
 
     }
 
