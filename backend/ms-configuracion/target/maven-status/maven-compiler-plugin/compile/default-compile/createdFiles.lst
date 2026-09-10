@@ -8,6 +8,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\TipoCam
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\SucursalController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\TipoCambioEntity$TipoCambioEntityBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarMonedaPorIdUseCase.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarParametroSistemaPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa$EmpresaBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\MonedaEntity$MonedaEntityBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarSucursalesUseCase.class

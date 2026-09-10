@@ -68,7 +68,16 @@ public class ParametroSistemaRepositoryAdapter implements ParametroSistemaReposi
     public Optional<ParametroSistema> buscarPorId(
             Long idParametro) {
 
-        return Optional.empty();
+        return parametroSistemaJpaRepository
+                .findById(idParametro)
+                .map(entity -> new ParametroSistema(
+                        entity.getIdParametro(),
+                        entity.getEmpresaId(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getValor(),
+                        entity.getDescripcion()
+                ));
 
     }
 

@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.ParametroSistemaRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.ParametroSistemaResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarParametroSistemaPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarParametroSistemaUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarParametroSistemaUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.domain.model.ParametroSistema;
@@ -22,16 +23,21 @@ public class ParametroSistemaController {
     private final RegistrarParametroSistemaUseCase
             registrarParametroSistemaUseCase;
     private final ListarParametroSistemaUseCase listarParametroSistemaUseCase;
+    private final BuscarParametroSistemaPorIdUseCase    buscarParametroSistemaPorIdUseCase;
     //contructor
     public ParametroSistemaController(
             RegistrarParametroSistemaUseCase registrarParametroSistemaUseCase,
-            ListarParametroSistemaUseCase listarParametroSistemaUseCase) {
+            ListarParametroSistemaUseCase listarParametroSistemaUseCase,
+            BuscarParametroSistemaPorIdUseCase buscarParametroSistemaPorIdUseCase) {
 
         this.registrarParametroSistemaUseCase =
                 registrarParametroSistemaUseCase;
 
         this.listarParametroSistemaUseCase =
                 listarParametroSistemaUseCase;
+
+        this.buscarParametroSistemaPorIdUseCase =
+                buscarParametroSistemaPorIdUseCase;
 
     }
 
@@ -103,6 +109,34 @@ public class ParametroSistemaController {
                         )
                 )
                 .toList();
+
+    }
+    @GetMapping("/{id}")
+    public ParametroSistemaResponse buscarPorId(
+            @PathVariable Long id) {
+
+        LOGGER.info(
+                "Consultando parametro del sistema con id {}",
+                id
+        );
+
+        ParametroSistema parametro =
+                buscarParametroSistemaPorIdUseCase
+                        .ejecutar(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Parametro del sistema no encontrado"
+                                )
+                        );
+
+        return new ParametroSistemaResponse(
+                parametro.getIdParametro(),
+                parametro.getEmpresaId(),
+                parametro.getCodigo(),
+                parametro.getNombre(),
+                parametro.getValor(),
+                parametro.getDescripcion()
+        );
 
     }
 
