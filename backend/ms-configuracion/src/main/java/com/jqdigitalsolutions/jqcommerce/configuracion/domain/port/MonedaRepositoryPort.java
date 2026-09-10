@@ -17,4 +17,5 @@ public interface MonedaRepositoryPort {
 
     Optional<Moneda> buscarPorId(Long idMoneda);
     Moneda actualizar(Moneda moneda);
+    void desactivar(Long idMoneda);
 }

@@ -16,6 +16,7 @@ D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolu
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarMonedaPorIdUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarSucursalPorIdUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarEmpresaUseCase.java
+D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarMonedaUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarSucursalUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarEmpresasUseCase.java
 D:\Proyectos\JQCommerce\backend\ms-configuracion\src\main\java\com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ListarMonedasUseCase.java

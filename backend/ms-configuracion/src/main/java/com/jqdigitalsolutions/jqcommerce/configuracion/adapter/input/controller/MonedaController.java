@@ -2,10 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.MonedaRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.MonedaResponse;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ActualizarMonedaUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarMonedaPorIdUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarMonedasUseCase;
-import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarMonedaUseCase;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.*;
 import com.jqdigitalsolutions.jqcommerce.configuracion.domain.model.Moneda;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,17 +21,19 @@ public class MonedaController {
     private final ListarMonedasUseCase listarMonedasUseCase;
     private final BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase;
     private final ActualizarMonedaUseCase actualizarMonedaUseCase;
-
+    private final DesactivarMonedaUseCase desactivarMonedaUseCase;
     public MonedaController(
             RegistrarMonedaUseCase registrarMonedaUseCase,
             ListarMonedasUseCase listarMonedasUseCase,
             BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase,
-            ActualizarMonedaUseCase actualizarMonedaUseCase) {
+            ActualizarMonedaUseCase actualizarMonedaUseCase,
+            DesactivarMonedaUseCase desactivarMonedaUseCase) {
 
         this.registrarMonedaUseCase = registrarMonedaUseCase;
         this.listarMonedasUseCase = listarMonedasUseCase;
         this.buscarMonedaPorIdUseCase = buscarMonedaPorIdUseCase;
         this.actualizarMonedaUseCase = actualizarMonedaUseCase;
+        this.desactivarMonedaUseCase = desactivarMonedaUseCase;
 
     }
 
@@ -133,6 +132,12 @@ public class MonedaController {
                 monedaActualizada.getSimbolo(),
                 monedaActualizada.getEstado()
         );
+
+    }
+    @PatchMapping("/{id}/desactivar")
+    public void desactivarMoneda(@PathVariable Long id) {
+        LOGGER.info("Desactivando moneda con id {}", id);
+        desactivarMonedaUseCase.ejecutar(id);
 
     }
 }
