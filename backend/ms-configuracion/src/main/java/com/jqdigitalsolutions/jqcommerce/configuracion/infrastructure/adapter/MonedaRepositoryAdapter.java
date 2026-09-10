@@ -60,8 +60,15 @@ public class MonedaRepositoryAdapter implements MonedaRepositoryPort {
 
     @Override
     public Optional<Moneda> buscarPorId(Long idMoneda) {
-
-        return Optional.empty();
+        return monedaJpaRepository
+                .findById(idMoneda)
+                .map(entity -> new Moneda(
+                        entity.getIdMoneda(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getSimbolo(),
+                        entity.getEstado()
+                ));
 
     }
 

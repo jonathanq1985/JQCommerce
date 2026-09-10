@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.MonedaRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.MonedaResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarMonedaPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarMonedasUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarMonedaUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.domain.model.Moneda;
@@ -20,12 +21,15 @@ public class MonedaController {
 
     private final RegistrarMonedaUseCase registrarMonedaUseCase;
     private final ListarMonedasUseCase listarMonedasUseCase;
+    private final BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase;
     public MonedaController(
             RegistrarMonedaUseCase registrarMonedaUseCase,
-            ListarMonedasUseCase listarMonedasUseCase) {
+            ListarMonedasUseCase listarMonedasUseCase,
+            BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase) {
 
         this.registrarMonedaUseCase = registrarMonedaUseCase;
         this.listarMonedasUseCase = listarMonedasUseCase;
+        this.buscarMonedaPorIdUseCase = buscarMonedaPorIdUseCase;
 
     }
 
@@ -68,6 +72,33 @@ public class MonedaController {
                         moneda.getEstado()
                 ))
                 .toList();
+
+    }
+    @GetMapping("/{id}")
+    public MonedaResponse buscarPorId(
+            @PathVariable Long id) {
+
+        LOGGER.info(
+                "Consultando moneda con id {}",
+                id
+        );
+
+        Moneda moneda =
+                buscarMonedaPorIdUseCase
+                        .ejecutar(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Moneda no encontrada"
+                                )
+                        );
+
+        return new MonedaResponse(
+                moneda.getIdMoneda(),
+                moneda.getCodigo(),
+                moneda.getNombre(),
+                moneda.getSimbolo(),
+                moneda.getEstado()
+        );
 
     }
 }
