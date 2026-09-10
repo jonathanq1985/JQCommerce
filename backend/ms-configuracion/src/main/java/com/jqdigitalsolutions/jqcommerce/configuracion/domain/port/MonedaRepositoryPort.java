@@ -16,5 +16,5 @@ public interface MonedaRepositoryPort {
     List<Moneda> listar();
 
     Optional<Moneda> buscarPorId(Long idMoneda);
-
+    Moneda actualizar(Moneda moneda);
 }

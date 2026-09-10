@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.MonedaRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.MonedaResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ActualizarMonedaUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarMonedaPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarMonedasUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarMonedaUseCase;
@@ -22,14 +23,18 @@ public class MonedaController {
     private final RegistrarMonedaUseCase registrarMonedaUseCase;
     private final ListarMonedasUseCase listarMonedasUseCase;
     private final BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase;
+    private final ActualizarMonedaUseCase actualizarMonedaUseCase;
+
     public MonedaController(
             RegistrarMonedaUseCase registrarMonedaUseCase,
             ListarMonedasUseCase listarMonedasUseCase,
-            BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase) {
+            BuscarMonedaPorIdUseCase buscarMonedaPorIdUseCase,
+            ActualizarMonedaUseCase actualizarMonedaUseCase) {
 
         this.registrarMonedaUseCase = registrarMonedaUseCase;
         this.listarMonedasUseCase = listarMonedasUseCase;
         this.buscarMonedaPorIdUseCase = buscarMonedaPorIdUseCase;
+        this.actualizarMonedaUseCase = actualizarMonedaUseCase;
 
     }
 
@@ -98,6 +103,35 @@ public class MonedaController {
                 moneda.getNombre(),
                 moneda.getSimbolo(),
                 moneda.getEstado()
+        );
+
+    }
+    @PutMapping("/{id}")
+    public MonedaResponse actualizarMoneda(
+            @PathVariable Long id,
+            @RequestBody MonedaRequest request) {
+
+        LOGGER.info(
+                "Actualizando moneda con id {}",
+                id
+        );
+
+        Moneda moneda = new Moneda();
+
+        moneda.setIdMoneda(id);
+        moneda.setCodigo(request.codigo());
+        moneda.setNombre(request.nombre());
+        moneda.setSimbolo(request.simbolo());
+
+        Moneda monedaActualizada =
+                actualizarMonedaUseCase.ejecutar(moneda);
+
+        return new MonedaResponse(
+                monedaActualizada.getIdMoneda(),
+                monedaActualizada.getCodigo(),
+                monedaActualizada.getNombre(),
+                monedaActualizada.getSimbolo(),
+                monedaActualizada.getEstado()
         );
 
     }

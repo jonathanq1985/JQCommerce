@@ -15,6 +15,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\adapter\SucursalR
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\RegistrarSucursalUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\SucursalEntity.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarEmpresaUseCase.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarMonedaUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\BuscarEmpresaPorIdUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarSucursalUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\repository\EmpresaJpaRepository.class

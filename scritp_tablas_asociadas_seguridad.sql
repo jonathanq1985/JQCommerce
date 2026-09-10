@@ -503,3 +503,49 @@ SELECT
     estado
 FROM configuracion.sucursal
 WHERE id_sucursal = 1;
+
+
+-- Ing_JQC: Consultar monedas registradas
+-- Tecnología: PostgreSQL
+-- Finalidad: Verificar el registro de monedas
+
+SELECT *
+FROM configuracion.moneda
+ORDER BY id_moneda;
+
+-- Ing_JQC: Consultar monedas registradas
+-- Tecnología: PostgreSQL
+-- Finalidad: Obtener catálogo de monedas disponibles
+
+SELECT
+    id_moneda,
+    codigo,
+    nombre,
+    simbolo,
+    estado
+FROM configuracion.moneda
+ORDER BY id_moneda;
+
+
+-- Ing_JQC: Buscar moneda por identificador
+-- Tecnología: PostgreSQL
+-- Finalidad: Consultar una moneda específica
+
+SELECT
+    id_moneda,
+    codigo,
+    nombre,
+    simbolo,
+    estado
+FROM configuracion.moneda
+WHERE id_moneda = 1;
+
+-- Ing_JQC: Actualizar moneda
+-- Tecnología: PostgreSQL
+-- Finalidad: Modificar información de una moneda existente
+
+UPDATE configuracion.moneda
+SET codigo = 'USD',
+    nombre = 'Dolar Americano Actualizado',
+    simbolo = '$'
+WHERE id_moneda = 1;

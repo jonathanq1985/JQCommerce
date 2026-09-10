@@ -71,5 +71,24 @@ public class MonedaRepositoryAdapter implements MonedaRepositoryPort {
                 ));
 
     }
+    @Override
+    public Moneda actualizar(Moneda moneda) {
+
+        MonedaEntity entity =
+                monedaJpaRepository.findById(
+                        moneda.getIdMoneda()
+                ).orElseThrow(() ->
+                        new RuntimeException(
+                                "Moneda no encontrada"
+                        )
+                );
+
+        entity.setCodigo(moneda.getCodigo());
+        entity.setNombre(moneda.getNombre());
+        entity.setSimbolo(moneda.getSimbolo());
+        monedaJpaRepository.save(entity);
+        return moneda;
+
+    }
 
 }
