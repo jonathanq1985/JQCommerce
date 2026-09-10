@@ -18,4 +18,6 @@ public interface TipoCambioRepositoryPort {
             Long monedaDestinoId,
             LocalDate fechaVigencia
     );
+    TipoCambio actualizar(TipoCambio tipoCambio);
+
 }

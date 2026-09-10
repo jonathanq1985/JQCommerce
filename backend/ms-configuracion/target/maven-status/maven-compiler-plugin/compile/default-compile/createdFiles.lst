@@ -54,6 +54,7 @@ com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\MonedaRequest.
 com\jqdigitalsolutions\jqcommerce\configuracion\infrastructure\entity\SucursalEntity$SucursalEntityBuilder.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\controller\EmpresaController.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\SucursalResponse.class
+com\jqdigitalsolutions\jqcommerce\configuracion\application\service\ActualizarTipoCambioUseCase.class
 com\jqdigitalsolutions\jqcommerce\configuracion\domain\model\Empresa.class
 com\jqdigitalsolutions\jqcommerce\configuracion\adapter\input\dto\TipoCambioResponse.class
 com\jqdigitalsolutions\jqcommerce\configuracion\application\service\DesactivarEmpresaUseCase.class

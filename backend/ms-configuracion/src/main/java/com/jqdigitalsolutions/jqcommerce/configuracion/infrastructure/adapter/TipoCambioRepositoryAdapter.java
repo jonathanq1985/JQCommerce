@@ -103,4 +103,40 @@ public class TipoCambioRepositoryAdapter
                 );
 
     }
+    @Override
+    public TipoCambio actualizar(
+            TipoCambio tipoCambio) {
+
+        TipoCambioEntity entity =
+                tipoCambioJpaRepository
+                        .findById(
+                                tipoCambio.getIdTipoCambio()
+                        )
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Tipo de cambio no encontrado"
+                                )
+                        );
+
+        entity.setMonedaOrigenId(
+                tipoCambio.getMonedaOrigenId()
+        );
+
+        entity.setMonedaDestinoId(
+                tipoCambio.getMonedaDestinoId()
+        );
+
+        entity.setValor(
+                tipoCambio.getValor()
+        );
+
+        entity.setFechaVigencia(
+                tipoCambio.getFechaVigencia()
+        );
+
+        tipoCambioJpaRepository.save(entity);
+
+        return tipoCambio;
+
+    }
 }

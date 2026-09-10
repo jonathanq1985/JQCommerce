@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.controller
 
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.TipoCambioRequest;
 import com.jqdigitalsolutions.jqcommerce.configuracion.adapter.input.dto.TipoCambioResponse;
+import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ActualizarTipoCambioUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.BuscarTipoCambioPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.ListarTipoCambioUseCase;
 import com.jqdigitalsolutions.jqcommerce.configuracion.application.service.RegistrarTipoCambioUseCase;
@@ -22,14 +23,17 @@ public class TipoCambioController {
     private final RegistrarTipoCambioUseCase registrarTipoCambioUseCase;
     private final ListarTipoCambioUseCase listarTipoCambioUseCase;
     private final BuscarTipoCambioPorIdUseCase buscarTipoCambioPorIdUseCase;
+    private final ActualizarTipoCambioUseCase actualizarTipoCambioUseCase;
     public TipoCambioController(
             RegistrarTipoCambioUseCase registrarTipoCambioUseCase,
             ListarTipoCambioUseCase listarTipoCambioUseCase,
-            BuscarTipoCambioPorIdUseCase buscarTipoCambioPorIdUseCase) {
+            BuscarTipoCambioPorIdUseCase buscarTipoCambioPorIdUseCase,
+            ActualizarTipoCambioUseCase actualizarTipoCambioUseCase) {
 
         this.registrarTipoCambioUseCase = registrarTipoCambioUseCase;
         this.listarTipoCambioUseCase = listarTipoCambioUseCase;
         this.buscarTipoCambioPorIdUseCase = buscarTipoCambioPorIdUseCase;
+        this.actualizarTipoCambioUseCase = actualizarTipoCambioUseCase;
 
     }
 
@@ -112,6 +116,49 @@ public class TipoCambioController {
                 tipoCambio.getMonedaDestinoId(),
                 tipoCambio.getValor(),
                 tipoCambio.getFechaVigencia()
+        );
+
+    }
+    @PutMapping("/{id}")
+    public TipoCambioResponse actualizarTipoCambio(
+            @PathVariable Long id,
+            @RequestBody TipoCambioRequest request) {
+
+        LOGGER.info(
+                "Actualizando tipo de cambio con id {}",
+                id
+        );
+
+        TipoCambio tipoCambio = new TipoCambio();
+
+        tipoCambio.setIdTipoCambio(id);
+
+        tipoCambio.setMonedaOrigenId(
+                request.monedaOrigenId()
+        );
+
+        tipoCambio.setMonedaDestinoId(
+                request.monedaDestinoId()
+        );
+
+        tipoCambio.setValor(
+                request.valor()
+        );
+
+        tipoCambio.setFechaVigencia(
+                request.fechaVigencia()
+        );
+
+        TipoCambio actualizado =
+                actualizarTipoCambioUseCase
+                        .ejecutar(tipoCambio);
+
+        return new TipoCambioResponse(
+                actualizado.getIdTipoCambio(),
+                actualizado.getMonedaOrigenId(),
+                actualizado.getMonedaDestinoId(),
+                actualizado.getValor(),
+                actualizado.getFechaVigencia()
         );
 
     }
