@@ -549,3 +549,156 @@ SET codigo = 'USD',
     nombre = 'Dolar Americano Actualizado',
     simbolo = '$'
 WHERE id_moneda = 1;
+
+/*
+ * Módulo      : Productos
+ * Componente  : Categoría de Producto
+ * Objetivo    : Administrar categorías comerciales
+ *               del catálogo de productos.
+ */
+
+CREATE TABLE productos.categoria_producto
+(
+    id_categoria BIGSERIAL PRIMARY KEY,
+
+    codigo VARCHAR(20) NOT NULL UNIQUE,
+
+    nombre VARCHAR(150) NOT NULL,
+
+    descripcion VARCHAR(500),
+
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP NOT NULL
+        DEFAULT CURRENT_TIMESTAMP
+);
+
+
+select *  from productos.categoria_producto;
+
+/*
+ * Módulo      : Productos
+ * Componente  : Categoría de Producto
+ * Operación   : Consulta General
+ * Objetivo    : Obtener el catálogo completo de
+ *               categorías disponibles.
+ */
+
+SELECT
+    id_categoria,
+    codigo,
+    nombre,
+    descripcion,
+    estado,
+    fecha_creacion
+FROM productos.categoria_producto
+ORDER BY id_categoria;
+
+/*
+ * Módulo      : Productos
+ * Componente  : Categoría de Producto
+ * Operación   : Consulta Individual
+ * Objetivo    : Obtener el detalle de una categoría
+ *               a partir de su identificador.
+ */
+
+SELECT
+    id_categoria,
+    codigo,
+    nombre,
+    descripcion,
+    estado,
+    fecha_creacion
+FROM productos.categoria_producto
+WHERE id_categoria = 3;
+
+/*
+ * Módulo      : Productos
+ * Componente  : Categoría de Producto
+ * Operación   : Actualización
+ * Objetivo    : Modificar la información de una categoría
+ *               registrada en el catálogo.
+ */
+
+UPDATE productos.categoria_producto
+SET nombre = 'Equipos Electronicos',
+    descripcion = 'Categoria actualizada de productos tecnologicos'
+WHERE id_categoria = 3;
+
+/*
+ * Módulo      : Productos
+ * Componente  : Categoría de Producto
+ * Operación   : Desactivación lógica
+ * Objetivo    : Inhabilitar una categoría sin eliminar
+ *               su información histórica.
+ */
+
+SELECT
+    id_categoria,
+    codigo,
+    nombre,
+    estado
+FROM productos.categoria_producto
+WHERE id_categoria = 3;
+
+/*
+ * Módulo      : Productos
+ * Componente  : Categoría de Producto
+ * Operación   : Activación lógica
+ * Objetivo    : Habilitar una categoría previamente
+ *               desactivada.
+ */
+
+SELECT
+    id_categoria,
+    codigo,
+    nombre,
+    estado
+FROM productos.categoria_producto
+WHERE id_categoria = 3;
+
+select *  from productos.unidad_medida
+
+/*
+ * Módulo      : Productos
+ * Componente  : Unidad de Medida
+ * Objetivo    : Administrar las unidades de medida
+ *               utilizadas por los productos.
+ */
+
+CREATE TABLE productos.unidad_medida
+(
+    id_unidad BIGSERIAL PRIMARY KEY,
+
+    codigo VARCHAR(10) NOT NULL UNIQUE,
+
+    nombre VARCHAR(100) NOT NULL,
+
+    abreviatura VARCHAR(20),
+
+    descripcion VARCHAR(300),
+
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+
+    fecha_creacion TIMESTAMP NOT NULL
+        DEFAULT CURRENT_TIMESTAMP
+);
+
+
+/*
+ * Módulo      : Productos
+ * Componente  : Unidad de Medida
+ * Operación   : Validación de Registro
+ * Objetivo    : Verificar la persistencia de las
+ *               unidades de medida registradas.
+ */
+
+SELECT
+    id_unidad,
+    codigo,
+    nombre,
+    abreviatura,
+    descripcion,
+    estado
+FROM productos.unidad_medida
+ORDER BY id_unidad;
