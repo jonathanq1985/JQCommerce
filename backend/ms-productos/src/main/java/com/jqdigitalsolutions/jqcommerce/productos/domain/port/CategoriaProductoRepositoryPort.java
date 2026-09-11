@@ -15,4 +15,5 @@ public interface CategoriaProductoRepositoryPort {
 
     Optional<CategoriaProducto> buscarPorId(Long idCategoria);
     CategoriaProducto actualizar(CategoriaProducto categoriaProducto);
+    void desactivar(Long idCategoria);
 }

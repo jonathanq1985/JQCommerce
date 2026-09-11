@@ -2,10 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.productos.adapter.input.controller;
 
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.CategoriaProductoRequest;
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.CategoriaProductoResponse;
-import com.jqdigitalsolutions.jqcommerce.productos.application.service.ActualizarCategoriaProductoUseCase;
-import com.jqdigitalsolutions.jqcommerce.productos.application.service.BuscarCategoriaProductoPorIdUseCase;
-import com.jqdigitalsolutions.jqcommerce.productos.application.service.ListarCategoriaProductoUseCase;
-import com.jqdigitalsolutions.jqcommerce.productos.application.service.RegistrarCategoriaProductoUseCase;
+import com.jqdigitalsolutions.jqcommerce.productos.application.service.*;
 import com.jqdigitalsolutions.jqcommerce.productos.domain.model.CategoriaProducto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +27,14 @@ public class CategoriaProductoController {
             buscarCategoriaProductoPorIdUseCase;
     private final ActualizarCategoriaProductoUseCase
             actualizarCategoriaProductoUseCase;
+    private final DesactivarCategoriaProductoUseCase
+            desactivarCategoriaProductoUseCase;
     public CategoriaProductoController(
             RegistrarCategoriaProductoUseCase registrarCategoriaProductoUseCase,
             ListarCategoriaProductoUseCase listarCategoriaProductoUseCase,
             BuscarCategoriaProductoPorIdUseCase buscarCategoriaProductoPorIdUseCase,
-            ActualizarCategoriaProductoUseCase actualizarCategoriaProductoUseCase) {
+            ActualizarCategoriaProductoUseCase actualizarCategoriaProductoUseCase,
+            DesactivarCategoriaProductoUseCase desactivarCategoriaProductoUseCase) {
 
         this.registrarCategoriaProductoUseCase =
                 registrarCategoriaProductoUseCase;
@@ -47,6 +47,9 @@ public class CategoriaProductoController {
 
         this.actualizarCategoriaProductoUseCase =
                 actualizarCategoriaProductoUseCase;
+
+        this.desactivarCategoriaProductoUseCase =
+                desactivarCategoriaProductoUseCase;
 
     }
 
@@ -172,6 +175,15 @@ public class CategoriaProductoController {
                 actualizada.getDescripcion(),
                 actualizada.getEstado()
         );
+
+    }
+    @PatchMapping("/{id}/desactivar")
+    public void desactivarCategoriaProducto(
+            @PathVariable Long id) {
+
+        LOGGER.info("Desactivando categoria de producto con id {}", id);
+
+        desactivarCategoriaProductoUseCase.ejecutar(id);
 
     }
 }

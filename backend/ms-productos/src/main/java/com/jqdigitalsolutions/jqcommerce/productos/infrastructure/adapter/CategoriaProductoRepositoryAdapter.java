@@ -96,4 +96,19 @@ public class CategoriaProductoRepositoryAdapter
         return categoriaProducto;
 
     }
+    @Override
+    public void desactivar(Long idCategoria) {
+
+        CategoriaProductoEntity entity =
+                categoriaProductoJpaRepository
+                        .findById(idCategoria)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Categoria de producto no encontrada"
+                                ));
+
+        entity.setEstado(false);
+        categoriaProductoJpaRepository.save(entity);
+
+    }
 }
