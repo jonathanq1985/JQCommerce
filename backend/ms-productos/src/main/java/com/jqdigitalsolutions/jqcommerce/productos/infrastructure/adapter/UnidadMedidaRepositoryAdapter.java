@@ -63,9 +63,16 @@ public class UnidadMedidaRepositoryAdapter
 
     @Override
     public Optional<UnidadMedida> buscarPorId(Long idUnidad) {
-
-        return Optional.empty();
-
+        return unidadMedidaJpaRepository
+                .findById(idUnidad)
+                .map(entity -> new UnidadMedida(
+                        entity.getIdUnidad(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getAbreviatura(),
+                        entity.getDescripcion(),
+                        entity.getEstado()
+                ));
     }
 
 }

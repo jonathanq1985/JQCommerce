@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.productos.adapter.input.controller;
 
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.UnidadMedidaRequest;
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.UnidadMedidaResponse;
+import com.jqdigitalsolutions.jqcommerce.productos.application.service.BuscarUnidadMedidaPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.application.service.ListarUnidadMedidaUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.application.service.RegistrarUnidadMedidaUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.domain.model.UnidadMedida;
@@ -24,15 +25,21 @@ public class UnidadMedidaController {
             registrarUnidadMedidaUseCase;
     private final ListarUnidadMedidaUseCase
             listarUnidadMedidaUseCase;
+    private final BuscarUnidadMedidaPorIdUseCase
+            buscarUnidadMedidaPorIdUseCase;
     public UnidadMedidaController(
             RegistrarUnidadMedidaUseCase registrarUnidadMedidaUseCase,
-            ListarUnidadMedidaUseCase listarUnidadMedidaUseCase) {
+            ListarUnidadMedidaUseCase listarUnidadMedidaUseCase,
+            BuscarUnidadMedidaPorIdUseCase buscarUnidadMedidaPorIdUseCase) {
 
         this.registrarUnidadMedidaUseCase =
                 registrarUnidadMedidaUseCase;
 
         this.listarUnidadMedidaUseCase =
                 listarUnidadMedidaUseCase;
+
+        this.buscarUnidadMedidaPorIdUseCase =
+                buscarUnidadMedidaPorIdUseCase;
 
     }
 
@@ -100,6 +107,34 @@ public class UnidadMedidaController {
                         )
                 )
                 .toList();
+
+    }
+    @GetMapping("/{id}")
+    public UnidadMedidaResponse buscarPorId(
+            @PathVariable Long id) {
+
+        LOGGER.info(
+                "Consultando unidad de medida con id {}",
+                id
+        );
+
+        UnidadMedida unidad =
+                buscarUnidadMedidaPorIdUseCase
+                        .ejecutar(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Unidad de medida no encontrada"
+                                )
+                        );
+
+        return new UnidadMedidaResponse(
+                unidad.getIdUnidad(),
+                unidad.getCodigo(),
+                unidad.getNombre(),
+                unidad.getAbreviatura(),
+                unidad.getDescripcion(),
+                unidad.getEstado()
+        );
 
     }
 
