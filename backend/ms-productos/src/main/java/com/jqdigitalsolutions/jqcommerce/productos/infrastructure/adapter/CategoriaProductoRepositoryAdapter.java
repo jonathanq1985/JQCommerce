@@ -64,7 +64,15 @@ public class CategoriaProductoRepositoryAdapter
     @Override
     public Optional<CategoriaProducto> buscarPorId(Long idCategoria) {
 
-        return Optional.empty();
+        return categoriaProductoJpaRepository
+                .findById(idCategoria)
+                .map(entity -> new CategoriaProducto(
+                        entity.getIdCategoria(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getDescripcion(),
+                        entity.getEstado()
+                ));
 
     }
 

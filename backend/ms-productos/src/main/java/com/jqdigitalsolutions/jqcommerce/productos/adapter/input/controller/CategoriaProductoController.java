@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.productos.adapter.input.controller;
 
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.CategoriaProductoRequest;
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.CategoriaProductoResponse;
+import com.jqdigitalsolutions.jqcommerce.productos.application.service.BuscarCategoriaProductoPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.application.service.ListarCategoriaProductoUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.application.service.RegistrarCategoriaProductoUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.domain.model.CategoriaProducto;
@@ -24,15 +25,21 @@ public class CategoriaProductoController {
             registrarCategoriaProductoUseCase;
     private final ListarCategoriaProductoUseCase
             listarCategoriaProductoUseCase;
+    private final BuscarCategoriaProductoPorIdUseCase
+            buscarCategoriaProductoPorIdUseCase;
     public CategoriaProductoController(
             RegistrarCategoriaProductoUseCase registrarCategoriaProductoUseCase,
-            ListarCategoriaProductoUseCase listarCategoriaProductoUseCase) {
+            ListarCategoriaProductoUseCase listarCategoriaProductoUseCase,
+            BuscarCategoriaProductoPorIdUseCase buscarCategoriaProductoPorIdUseCase) {
 
         this.registrarCategoriaProductoUseCase =
                 registrarCategoriaProductoUseCase;
 
         this.listarCategoriaProductoUseCase =
                 listarCategoriaProductoUseCase;
+
+        this.buscarCategoriaProductoPorIdUseCase =
+                buscarCategoriaProductoPorIdUseCase;
 
     }
 
@@ -93,5 +100,31 @@ public class CategoriaProductoController {
                 .toList();
 
     }
+    @GetMapping("/{id}")
+    public CategoriaProductoResponse buscarPorId(
+            @PathVariable Long id) {
 
+        LOGGER.info(
+                "Consultando categoria de producto con id {}",
+                id
+        );
+
+        CategoriaProducto categoria =
+                buscarCategoriaProductoPorIdUseCase
+                        .ejecutar(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Categoria de producto no encontrada"
+                                )
+                        );
+
+        return new CategoriaProductoResponse(
+                categoria.getIdCategoria(),
+                categoria.getCodigo(),
+                categoria.getNombre(),
+                categoria.getDescripcion(),
+                categoria.getEstado()
+        );
+
+    }
 }
