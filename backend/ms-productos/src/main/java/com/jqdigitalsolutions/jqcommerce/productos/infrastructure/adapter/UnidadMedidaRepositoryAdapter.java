@@ -47,8 +47,17 @@ public class UnidadMedidaRepositoryAdapter
 
     @Override
     public List<UnidadMedida> listar() {
-
-        return List.of();
+        return unidadMedidaJpaRepository.findAll()
+                .stream()
+                .map(entity -> new UnidadMedida(
+                        entity.getIdUnidad(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getAbreviatura(),
+                        entity.getDescripcion(),
+                        entity.getEstado()
+                ))
+                .toList();
 
     }
 
