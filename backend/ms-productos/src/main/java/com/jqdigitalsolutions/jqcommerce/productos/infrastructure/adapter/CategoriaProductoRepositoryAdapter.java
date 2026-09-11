@@ -48,7 +48,16 @@ public class CategoriaProductoRepositoryAdapter
     @Override
     public List<CategoriaProducto> listar() {
 
-        return List.of();
+        return categoriaProductoJpaRepository.findAll()
+                .stream()
+                .map(entity -> new CategoriaProducto(
+                        entity.getIdCategoria(),
+                        entity.getCodigo(),
+                        entity.getNombre(),
+                        entity.getDescripcion(),
+                        entity.getEstado()
+                ))
+                .toList();
 
     }
 
