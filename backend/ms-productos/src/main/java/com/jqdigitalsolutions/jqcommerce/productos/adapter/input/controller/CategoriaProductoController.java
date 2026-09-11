@@ -29,12 +29,15 @@ public class CategoriaProductoController {
             actualizarCategoriaProductoUseCase;
     private final DesactivarCategoriaProductoUseCase
             desactivarCategoriaProductoUseCase;
+    private final ActivarCategoriaProductoUseCase
+            activarCategoriaProductoUseCase;
     public CategoriaProductoController(
             RegistrarCategoriaProductoUseCase registrarCategoriaProductoUseCase,
             ListarCategoriaProductoUseCase listarCategoriaProductoUseCase,
             BuscarCategoriaProductoPorIdUseCase buscarCategoriaProductoPorIdUseCase,
             ActualizarCategoriaProductoUseCase actualizarCategoriaProductoUseCase,
-            DesactivarCategoriaProductoUseCase desactivarCategoriaProductoUseCase) {
+            DesactivarCategoriaProductoUseCase desactivarCategoriaProductoUseCase,
+            ActivarCategoriaProductoUseCase activarCategoriaProductoUseCase) {
 
         this.registrarCategoriaProductoUseCase =
                 registrarCategoriaProductoUseCase;
@@ -50,6 +53,9 @@ public class CategoriaProductoController {
 
         this.desactivarCategoriaProductoUseCase =
                 desactivarCategoriaProductoUseCase;
+
+        this.activarCategoriaProductoUseCase =
+                activarCategoriaProductoUseCase;
 
     }
 
@@ -184,6 +190,18 @@ public class CategoriaProductoController {
         LOGGER.info("Desactivando categoria de producto con id {}", id);
 
         desactivarCategoriaProductoUseCase.ejecutar(id);
+
+    }
+    @PatchMapping("/{id}/activar")
+    public void activarCategoriaProducto(
+            @PathVariable Long id) {
+
+        LOGGER.info(
+                "Activando categoria de producto con id {}",
+                id
+        );
+
+        activarCategoriaProductoUseCase.ejecutar(id);
 
     }
 }

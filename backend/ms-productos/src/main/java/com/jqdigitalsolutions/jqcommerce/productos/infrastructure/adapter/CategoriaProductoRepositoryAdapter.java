@@ -111,4 +111,20 @@ public class CategoriaProductoRepositoryAdapter
         categoriaProductoJpaRepository.save(entity);
 
     }
+    @Override
+    public void activar(Long idCategoria) {
+
+        CategoriaProductoEntity entity =
+                categoriaProductoJpaRepository
+                        .findById(idCategoria)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Categoria de producto no encontrada"
+                                ));
+
+        entity.setEstado(true);
+
+        categoriaProductoJpaRepository.save(entity);
+
+    }
 }
