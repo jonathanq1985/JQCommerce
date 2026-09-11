@@ -14,5 +14,5 @@ public interface CategoriaProductoRepositoryPort {
     List<CategoriaProducto> listar();
 
     Optional<CategoriaProducto> buscarPorId(Long idCategoria);
-
+    CategoriaProducto actualizar(CategoriaProducto categoriaProducto);
 }

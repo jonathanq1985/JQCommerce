@@ -76,4 +76,24 @@ public class CategoriaProductoRepositoryAdapter
 
     }
 
+    @Override
+    public CategoriaProducto actualizar(
+            CategoriaProducto categoriaProducto) {
+
+        CategoriaProductoEntity entity =
+                categoriaProductoJpaRepository
+                        .findById(categoriaProducto.getIdCategoria())
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Categoria de producto no encontrada"
+                                ));
+
+        entity.setCodigo(categoriaProducto.getCodigo());
+        entity.setNombre(categoriaProducto.getNombre());
+        entity.setDescripcion(categoriaProducto.getDescripcion());
+        categoriaProductoJpaRepository.save(entity);
+
+        return categoriaProducto;
+
+    }
 }
