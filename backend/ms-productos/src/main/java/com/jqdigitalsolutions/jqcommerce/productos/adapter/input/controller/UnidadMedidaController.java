@@ -2,6 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.productos.adapter.input.controller;
 
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.UnidadMedidaRequest;
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.UnidadMedidaResponse;
+import com.jqdigitalsolutions.jqcommerce.productos.application.service.ActualizarUnidadMedidaUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.application.service.BuscarUnidadMedidaPorIdUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.application.service.ListarUnidadMedidaUseCase;
 import com.jqdigitalsolutions.jqcommerce.productos.application.service.RegistrarUnidadMedidaUseCase;
@@ -27,10 +28,14 @@ public class UnidadMedidaController {
             listarUnidadMedidaUseCase;
     private final BuscarUnidadMedidaPorIdUseCase
             buscarUnidadMedidaPorIdUseCase;
+    private final ActualizarUnidadMedidaUseCase
+            actualizarUnidadMedidaUseCase;
+
     public UnidadMedidaController(
             RegistrarUnidadMedidaUseCase registrarUnidadMedidaUseCase,
             ListarUnidadMedidaUseCase listarUnidadMedidaUseCase,
-            BuscarUnidadMedidaPorIdUseCase buscarUnidadMedidaPorIdUseCase) {
+            BuscarUnidadMedidaPorIdUseCase buscarUnidadMedidaPorIdUseCase,
+            ActualizarUnidadMedidaUseCase actualizarUnidadMedidaUseCase) {
 
         this.registrarUnidadMedidaUseCase =
                 registrarUnidadMedidaUseCase;
@@ -40,6 +45,9 @@ public class UnidadMedidaController {
 
         this.buscarUnidadMedidaPorIdUseCase =
                 buscarUnidadMedidaPorIdUseCase;
+
+        this.actualizarUnidadMedidaUseCase =
+                actualizarUnidadMedidaUseCase;
 
     }
 
@@ -134,6 +142,52 @@ public class UnidadMedidaController {
                 unidad.getAbreviatura(),
                 unidad.getDescripcion(),
                 unidad.getEstado()
+        );
+
+    }
+
+    @PutMapping("/{id}")
+    public UnidadMedidaResponse actualizarUnidadMedida(
+            @PathVariable Long id,
+            @RequestBody UnidadMedidaRequest request) {
+
+        LOGGER.info(
+                "Actualizando unidad de medida con id {}",
+                id
+        );
+
+        UnidadMedida unidadMedida =
+                new UnidadMedida();
+
+        unidadMedida.setIdUnidad(id);
+
+        unidadMedida.setCodigo(
+                request.codigo()
+        );
+
+        unidadMedida.setNombre(
+                request.nombre()
+        );
+
+        unidadMedida.setAbreviatura(
+                request.abreviatura()
+        );
+
+        unidadMedida.setDescripcion(
+                request.descripcion()
+        );
+
+        UnidadMedida actualizada =
+                actualizarUnidadMedidaUseCase
+                        .ejecutar(unidadMedida);
+
+        return new UnidadMedidaResponse(
+                actualizada.getIdUnidad(),
+                actualizada.getCodigo(),
+                actualizada.getNombre(),
+                actualizada.getAbreviatura(),
+                actualizada.getDescripcion(),
+                actualizada.getEstado()
         );
 
     }

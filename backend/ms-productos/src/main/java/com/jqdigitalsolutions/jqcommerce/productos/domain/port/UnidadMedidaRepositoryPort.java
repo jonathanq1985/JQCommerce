@@ -12,5 +12,5 @@ public interface UnidadMedidaRepositoryPort {
     List<UnidadMedida> listar();
 
     Optional<UnidadMedida> buscarPorId(Long idUnidad);
-
+    UnidadMedida actualizar(UnidadMedida unidadMedida);
 }

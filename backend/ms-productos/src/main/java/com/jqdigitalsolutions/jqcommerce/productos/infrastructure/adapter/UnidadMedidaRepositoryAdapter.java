@@ -75,4 +75,38 @@ public class UnidadMedidaRepositoryAdapter
                 ));
     }
 
+    @Override
+    public UnidadMedida actualizar(
+            UnidadMedida unidadMedida) {
+
+        UnidadMedidaEntity entity =
+                unidadMedidaJpaRepository
+                        .findById(unidadMedida.getIdUnidad())
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Unidad de medida no encontrada"
+                                ));
+
+        entity.setCodigo(
+                unidadMedida.getCodigo()
+        );
+
+        entity.setNombre(
+                unidadMedida.getNombre()
+        );
+
+        entity.setAbreviatura(
+                unidadMedida.getAbreviatura()
+        );
+
+        entity.setDescripcion(
+                unidadMedida.getDescripcion()
+        );
+
+        unidadMedidaJpaRepository.save(entity);
+
+        return unidadMedida;
+
+    }
+
 }
