@@ -702,3 +702,13 @@ SELECT
     estado
 FROM productos.unidad_medida
 ORDER BY id_unidad;
+
+SELECT
+    id_unidad,
+    codigo,
+    nombre,
+    abreviatura,
+    descripcion,
+    estado
+FROM productos.unidad_medida
+WHERE id_unidad = 1;

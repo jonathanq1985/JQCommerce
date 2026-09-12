@@ -13,4 +13,5 @@ public interface UnidadMedidaRepositoryPort {
 
     Optional<UnidadMedida> buscarPorId(Long idUnidad);
     UnidadMedida actualizar(UnidadMedida unidadMedida);
+    void desactivar(Long idUnidad);
 }

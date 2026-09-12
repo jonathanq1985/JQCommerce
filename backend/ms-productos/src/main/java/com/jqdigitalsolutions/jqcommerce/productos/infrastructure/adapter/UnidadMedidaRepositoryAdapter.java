@@ -109,4 +109,20 @@ public class UnidadMedidaRepositoryAdapter
 
     }
 
+    @Override
+    public void desactivar(Long idUnidad) {
+
+        UnidadMedidaEntity entity =
+                unidadMedidaJpaRepository
+                        .findById(idUnidad)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Unidad de medida no encontrada"
+                                ));
+
+        entity.setEstado(false);
+
+        unidadMedidaJpaRepository.save(entity);
+
+    }
 }

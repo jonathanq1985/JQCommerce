@@ -2,10 +2,7 @@ package com.jqdigitalsolutions.jqcommerce.productos.adapter.input.controller;
 
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.UnidadMedidaRequest;
 import com.jqdigitalsolutions.jqcommerce.productos.adapter.input.dto.UnidadMedidaResponse;
-import com.jqdigitalsolutions.jqcommerce.productos.application.service.ActualizarUnidadMedidaUseCase;
-import com.jqdigitalsolutions.jqcommerce.productos.application.service.BuscarUnidadMedidaPorIdUseCase;
-import com.jqdigitalsolutions.jqcommerce.productos.application.service.ListarUnidadMedidaUseCase;
-import com.jqdigitalsolutions.jqcommerce.productos.application.service.RegistrarUnidadMedidaUseCase;
+import com.jqdigitalsolutions.jqcommerce.productos.application.service.*;
 import com.jqdigitalsolutions.jqcommerce.productos.domain.model.UnidadMedida;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,12 +27,14 @@ public class UnidadMedidaController {
             buscarUnidadMedidaPorIdUseCase;
     private final ActualizarUnidadMedidaUseCase
             actualizarUnidadMedidaUseCase;
-
+    private final DesactivarUnidadMedidaUseCase
+            desactivarUnidadMedidaUseCase;
     public UnidadMedidaController(
             RegistrarUnidadMedidaUseCase registrarUnidadMedidaUseCase,
             ListarUnidadMedidaUseCase listarUnidadMedidaUseCase,
             BuscarUnidadMedidaPorIdUseCase buscarUnidadMedidaPorIdUseCase,
-            ActualizarUnidadMedidaUseCase actualizarUnidadMedidaUseCase) {
+            ActualizarUnidadMedidaUseCase actualizarUnidadMedidaUseCase,
+            DesactivarUnidadMedidaUseCase desactivarUnidadMedidaUseCase) {
 
         this.registrarUnidadMedidaUseCase =
                 registrarUnidadMedidaUseCase;
@@ -49,7 +48,11 @@ public class UnidadMedidaController {
         this.actualizarUnidadMedidaUseCase =
                 actualizarUnidadMedidaUseCase;
 
+        this.desactivarUnidadMedidaUseCase =
+                desactivarUnidadMedidaUseCase;
+
     }
+
 
     @PostMapping
     public UnidadMedidaResponse registrarUnidadMedida(
@@ -189,6 +192,18 @@ public class UnidadMedidaController {
                 actualizada.getDescripcion(),
                 actualizada.getEstado()
         );
+
+    }
+    @PatchMapping("/{id}/desactivar")
+    public void desactivarUnidadMedida(
+            @PathVariable Long id) {
+
+        LOGGER.info(
+                "Desactivando unidad de medida con id {}",
+                id
+        );
+
+        desactivarUnidadMedidaUseCase.ejecutar(id);
 
     }
 
